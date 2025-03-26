@@ -16,10 +16,7 @@ static async getAllProducts() {
 static async getProductById(pdId){
     try {
 
-        if( await Product.findByPk(pdId) == null)
-            {
-                throw new Error("Product Id don't exist");
-            }
+        
         return await Product.findByPk(pdId);
     } catch (error) {
         throw new Error(error);
@@ -39,10 +36,7 @@ try {
 
 static async updateProduct(pdId,pdName,pdPrice){
     try {
-        if( await Product.findByPk(pdId) == null)
-            {
-                throw new Error("Product Id don't exist");
-            }
+        
         const updateProduct = await Product.update({
             pd_name:pdName,
             pd_price : pdPrice
@@ -60,8 +54,7 @@ catch(error){
 
 static async deleteProduct(pdId) {
     try {
-        if(await Product.findByPk(pdId)==null)
-            throw new Error("Id doesn't exist");
+       
         return await Product.destroy({
          where : {product_id :pdId}
         }

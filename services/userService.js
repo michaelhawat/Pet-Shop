@@ -3,44 +3,63 @@ const UserRepository = require("../repositories/userRepository");
 
 class UserService{
 
-    static async createUser(user)
-    {
-       return  UserRepository.createUser(user);
-    }
-   
-
-    static async updateUser(user)
-    {
-      return  UserRepository.updateUser(user);
-    }
-//static async userExist(firstName,lastName){
-  //  return UserRepository.userExist(firstName,lastName);
-//}
-    static async deleteUser(id)
-    {
-
-       return UserRepository.deleteUser(id);
-    }
-static async changePassword(id, newPassword, oldPassword){
-    return UserRepository.changePassword(id, newPassword, oldPassword);
-}
-
-    static async registration( email ,password){
-        
-            return UserRepository.authenticate( email,  password);
-      
-    }
-    static async readUsers(){
-        return UserRepository.readUsers(); 
-    }
-     
-    static async readUser(id){
-        return UserRepository.readUser(id);
+    static async createUser(user) {
+        try {
+            return await UserRepository.createUser(user);
+        } catch (error) {
+            throw new Error(`Error creating user: ${error.message}`);
+        }
     }
 
-    // static async readUserByFN(fn){
-    //     return UserRepository.readUserByFN(fn);
-    // }
+    static async updateUser(user) {
+        try {
+            return await UserRepository.updateUser(user);
+        } catch (error) {
+            throw new Error(`Error updating user: ${error.message}`);
+        }
+    }
+
+    static async deleteUser(id) {
+        try {
+            return await UserRepository.deleteUser(id);
+        } catch (error) {
+            throw new Error(`Error deleting user: ${error.message}`);
+        }
+    }
+
+    static async changePassword(id, newPassword, oldPassword) {
+        try {
+            return await UserRepository.changePassword(id, newPassword, oldPassword);
+        } catch (error) {
+            throw new Error(`Error changing password: ${error.message}`);
+        }
+    }
+
+    static async registration(email, password) {
+        try {
+            return await UserRepository.authenticate(email, password);
+        } catch (error) {
+            throw new Error(`Error during registration: ${error.message}`);
+        }
+    }
+
+    static async readUsers() {
+        try {
+            return await UserRepository.readUsers();
+        } catch (error) {
+            throw new Error(`Error reading users: ${error.message}`);
+        }
+    }
+
+    static async readUser(id) {
+        try {
+            return await UserRepository.readUser(id);
+        } catch (error) {
+            throw new Error(`Error reading user: ${error.message}`);
+        }
+    }
+
+    
 
 }
 

@@ -8,6 +8,7 @@ class OrderRepository {
 static async createOrder(userId){
 
 try {
+    
     const addOrder =await Order.create({
         user_id: userId,
         order_date: Utils.formatDate()
@@ -20,10 +21,8 @@ try {
 }
 static async updateOrder(orderId,userId){
     try {
-        if( await Order.findByPk(orderId) == null)
-        {
-            throw new Error("order Id don't exist");
-        }
+        
+        
         return await Order.update({
             user_id:userId,
             order_date:Utils.formatDate()
@@ -45,10 +44,7 @@ static async getOrders(){
 }
 static async getOrderById(orderId){
     try {
-        if( await Order.findByPk(orderId) == null)
-            {
-                throw new Error("Order Id don't exist");
-            }
+       
         return await Order.findByPk(orderId);
     } catch (error) {
         throw new Error(error);
@@ -62,10 +58,7 @@ static async getOrderByUserId(userId){
                user_id:userId
            }
        });
-         if(user.length == 0)
-         {
-              throw new Error("User don't have orders");
-         }
+         
          return user;
        
    }
@@ -76,10 +69,7 @@ static async getOrderByUserId(userId){
 static async deleteOrder(orderId){
     
    try {
-    if( await Order.findByPk(orderId) == null)
-    {
-        throw new Error("order Id don't exist");
-    }
+    
        return await Order.destroy({
            where:{
                order_id:orderId

@@ -7,14 +7,11 @@ class PetRepository{
             const sql = `INSERT INTO pets 
             (user_id, pet_name, pet_type, vaccinated, pet_age, pet_gender)
             VALUES (?,?,?,?,?,?)`;
-            if(!await this.idExist(pet.userId))
-                throw new Error("This user does not exist");
-             if(!await this.Exists(pet)){
+            
             const { affectedRows } = await db.query(sql, [pet.userId, pet.petName, pet.petType, pet.vaccinated, pet.petAge, pet.petGender]);
             return affectedRows;
-             }
-                else
-                throw new Error("This pet already exists");
+             
+               
         } catch (error) {
             console.error('Error creating pet:', error);
             throw error;
@@ -68,8 +65,7 @@ class PetRepository{
             const sql = `SELECT * FROM pets WHERE pet_id = ?`;
             
             const rows = await db.query(sql, [petId]);
-            if(!await this.PetidExist(petId))
-                throw new Error("This Pet does not exist");
+            
             return Pet.fromRow(rows[0]);
         } catch (error) {
             console.error('Error getting pet by ID:', error);
@@ -87,16 +83,10 @@ class PetRepository{
             pet_age = ?,
             pet_gender = ?
             WHERE pet_id = ?`;
-            if(!await this.PetidExist(pet.petId))
-                throw new Error("This Pet does not exist");
-            if(!await this.idExist(pet.userId))
-                throw new Error("This user does not exist");
-            if(!await this.Exists(pet)){
+           
             const { affectedRows } = await db.query(sql, [pet.userId, pet.petName, pet.petType, pet.vaccinated, pet.petAge, pet.petGender, pet.petId]);
             return affectedRows;
-            }
-            else
-            throw new Error("This pet already exists");
+           
         } catch (error) {
             console.error('Error updating pet:', error);
             throw error;
@@ -105,8 +95,7 @@ class PetRepository{
 
     static async deletePet(petId) {
         try {
-            if(!await this.PetidExist(petId))
-                throw new Error("This Pet does not exist");
+            
             return await db.query('DELETE FROM pets WHERE pet_id = ?', [petId]);
         } catch (error) {
             console.error('Error deleting pet:', error);
@@ -116,8 +105,7 @@ class PetRepository{
 
     static async getPetByUserId(userId) {
         try {
-            if(!await this.idExist(userId))
-                throw new Error("This user does not exist");
+           
             const sql = `SELECT * FROM pets WHERE user_id = ?`;
             const rows = await db.query(sql, [userId]);
             return rows.map(Pet.fromRow);

@@ -1,26 +1,72 @@
 const OrderRepository = require("../repositories/orderRepository");
+const Order = require("../models/orderModel");
 
-class OrderService{
+class OrderService {
 
-    static async createOrder(userId)
-    {
-        return OrderRepository.createOrder(userId);
+    static async createOrder(userId) {
+        try {
+            if (await Order.findByPk(userId) == null) {
+                throw new Error("User Id doesn't exist");
+            }
+            return OrderRepository.createOrder(userId);
+        } catch (error) {
+            throw new Error(`Error in createOrder: ${error.message}`);
+        }
     }
-    static async updateOrder(orderId,userId)
-    {
-        return OrderRepository.updateOrder(orderId,userId);
+
+    static async updateOrder(orderId, userId) {
+        try {
+            if (await Order.findByPk(orderId) == null) {
+                throw new Error("Order Id doesn't exist");
+            }
+            if (await Order.findByPk(userId) == null) {
+                throw new Error("User Id doesn't exist");
+            }
+            return OrderRepository.updateOrder(orderId, userId);
+        } catch (error) {
+            throw new Error(`Error in updateOrder: ${error.message}`);
+        }
     }
-    static async getOrders(){
-        return OrderRepository.getOrders();
+
+    static async getOrders() {
+        try {
+            return OrderRepository.getOrders();
+        } catch (error) {
+            throw new Error(`Error in getOrders: ${error.message}`);
+        }
     }
-    static async getOrderById(orderId){
-        return OrderRepository.getOrderById(orderId);
+
+    static async getOrderById(orderId) {
+        try {
+            if (await Order.findByPk(orderId) == null) {
+                throw new Error("Order Id doesn't exist");
+            }
+            return OrderRepository.getOrderById(orderId);
+        } catch (error) {
+            throw new Error(`Error in getOrderById: ${error.message}`);
+        }
     }
-    static async getOrderByUserId(userId){
-        return OrderRepository.getOrderByUserId(userId);
+
+    static async getOrderByUserId(userId) {
+        try {
+            if(await Order.findByPk(userId) == null){
+                throw new Error("User Id doesn't exist");
+            }
+            return OrderRepository.getOrderByUserId(userId);
+        } catch (error) {
+            throw new Error(`Error in getOrderByUserId: ${error.message}`);
+        }
     }
-    static async deleteOrder(orderId){
-        return OrderRepository.deleteOrder(orderId);
+
+    static async deleteOrder(orderId) {
+        try {
+            if (await Order.findByPk(orderId) == null) {
+                throw new Error("Order Id doesn't exist");
+            }
+            return OrderRepository.deleteOrder(orderId);
+        } catch (error) {
+            throw new Error(`Error in deleteOrder: ${error.message}`);
+        }
     }
 }
 module.exports = OrderService;
