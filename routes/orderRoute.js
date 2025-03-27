@@ -1,5 +1,5 @@
 const express = require("express");
-const OrderController = require("../contorllers/orderController");
+const OrderController = require("../controllers/orderController");
 const {validateOrder,validateUserId,validateOrderId} = require("../validators/order.dto");
 const router = express.Router();
 
@@ -10,5 +10,5 @@ const router = express.Router();
     router.get('/:orderId',validateOrderId,OrderController.getOrderById);
     router.get('/userId/:userId',validateUserId,OrderController.getOrderByUserId);
 
-    module.exports=router;
+    module.exports=router;  
 

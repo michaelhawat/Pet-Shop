@@ -1,4 +1,4 @@
-const PetController = require('../contorllers/PetController');
+const PetController = require('../controllers/PetController');
 const{ validatePet , validatePetId} = require('../validators/pet.dto');
 const { validateUserId } = require('../validators/user.dto');
 const express = require('express');

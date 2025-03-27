@@ -1,5 +1,5 @@
 const express = require("express");
-const BoardingController = require("../contorllers/boardingController");
+const BoardingController = require("../controllers/boardingController");
 
 const router = express.Router();
 

@@ -1,6 +1,6 @@
 
 const express = require("express");
-const UserController = require("../contorllers/userController");
+const UserController = require("../controllers/userController");
 const {validateUser} = require('../validators/user.dto');
 const {validateUserId} = require('../validators/user.dto');
 const {validateUserReg} = require('../validators/user.dto');

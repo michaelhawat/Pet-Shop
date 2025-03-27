@@ -12,6 +12,7 @@ const petRoutes = require('./routes/petRoute');
 const appRoutes =require('./routes/appointmnentRoute');
 const orderDetails = require('./routes/orderDetailsRoute');
 const productRoutes = require("./routes/productRoute");
+const paymentRoutes = require("./routes/paymentRoute");
 require('dotenv').config();
 
 const app = express();
@@ -21,6 +22,7 @@ app.use(bodyParser.json());
 
 app.use('/api/pets',petRoutes);
 app.use('/api/app', appRoutes);
+app.use('/api/payments', paymentRoutes);
 app.use('/api/orderDetails', orderDetails);
 app.use('/api/boardings',boardingRoutes);
 app.use('/api/products',productRoutes);

@@ -12,6 +12,10 @@ class Utils {
     static formatDate() {
         return moment().format("YYYY-MM-DD hh:mm");
     }
+
+    static formatDay() {
+        return moment().format("YYYY-MM-DD ");
+    }
     static async hashedPassword(password) {
         const hashedPassword = await bcrypt.hash(password, 10);
         return hashedPassword;

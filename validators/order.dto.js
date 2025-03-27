@@ -2,7 +2,11 @@ const {body, param, validationResult} = require("express-validator");
 
 const validateOrder = [
 
-    body('userId').isInt().withMessage('User ID must be integer'),
+    body('userId')
+    .isInt()
+    .withMessage('User ID must be integer')
+    .notEmpty()
+    .withMessage('User ID is required'),
     (req, res, next)=>{
         const errors = validationResult(req);
         if(!errors.isEmpty()){
@@ -12,7 +16,8 @@ const validateOrder = [
     }
 ]
 const validateUserId = [
-    param('userId').isInt().withMessage('User ID must be integer'),
+    param('userId').isInt().withMessage('User ID must be integer')
+    .notEmpty().withMessage('User ID is required'),
     (req, res, next)=>{
         const errors = validationResult(req);
         if(!errors.isEmpty()){
@@ -22,7 +27,8 @@ const validateUserId = [
     }
 ]
 const validateOrderId = [
-    param('orderId').isInt().withMessage('Order ID must be integer'),
+    param('orderId').isInt().withMessage('Order ID must be integer')
+    .notEmpty().withMessage('Order ID is required'),
     (req, res, next)=>{
         const errors = validationResult(req);
         if(!errors.isEmpty()){
