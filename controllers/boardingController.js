@@ -3,59 +3,66 @@ const BoardingService = require('../services/boardingService');
 
 class BoardingController {
     static async createBoarding(req, res) {
-        const { petId, checkIn, checkOut } = req.body;
-        if (!petId || !checkIn || !checkOut) {
-            return res.status(400).json({ message: 'All fields are required' });
+        try {
+            const { petId, checkIn, checkOut } = req.body;
+            var boarding = new Boarding(0, petId, checkIn, checkOut);
+            const newboarding = await BoardingService.createBoarding(boarding);
+            return res.status(201).json({ message: 'Boarding created successfully' });
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
         }
-        var boarding = new Boarding(0, petId, checkIn, checkOut);
-         const newboarding = await BoardingService.createBoarding(boarding);
-         return res.status(201).json({message : 'Boarding created successfully'});
-}
-
-static async updateBoarding(req, res) { 
-    const {boardingId} = req.params;
-    const { petId, checkIn, checkOut } = req.body;
-    if (!boardingId || !petId || !checkIn || !checkOut) {
-        return res.status(400).json({ message: 'All fields are required' });
     }
-     var boarding  = new Boarding(boardingId, petId, checkIn, checkOut);
-     const updateBoarding = await BoardingService.updateBoarding(boarding);
-     return res.status(200).json({message : `Boarding ${boardingId} updated successfully`});
 
+    static async updateBoarding(req, res) {
+        try {
+            const { boardingId } = req.params;
+            const { petId, checkIn, checkOut } = req.body;
+            var boarding = new Boarding(boardingId, petId, checkIn, checkOut);
+            const updateBoarding = await BoardingService.updateBoarding(boarding);
+            return res.status(200).json({ message: `Boarding ${boardingId} updated successfully` });
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
+    }
 
-}
-static async deleteBoarding(req, res) { 
-    const {boardingId} = req.params;
-    if (!boardingId) {
-        return res.status(400).json({ message: 'Boarding Id is required' });
+    static async deleteBoarding(req, res) {
+        try {
+            const { boardingId } = req.params;
+            const boarding = await BoardingService.deleteBoarding(boardingId);
+            return res.status(200).json({ message: `Boarding ${boardingId} deleted successfully` });
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
     }
-  
-     const boarding = await BoardingService.deleteBoarding(boardingId);
-     return res.status(200).json({message : `Boarding ${boardingId} deleted successfully`});
 
-}
-static async getBoardingByDate(req, res) { 
-    const {checkIn} = req.body;
-    if (!checkIn) {
-        return res.status(400).json({ message: 'Check in date is required' });
+    static async getBoardingByDate(req, res) {
+        try {
+            const { checkIn } = req.params;
+            const boarding = await BoardingService.getBoardingByDate(checkIn);
+            return res.status(200).json(boarding);
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
     }
-  
-     const boarding = await BoardingService.getBoardingByDate(checkIn);
-     return res.status(200).json(boarding);
-}
-static async getBoardingByPet(req, res) { 
-    const {petId} = req.params;
-    if (!petId) {
-        return res.status(400).json({ message: 'Pet Id is required' });
+
+    static async getBoardingByPet(req, res) {
+        try {
+            const { petId } = req.params;
+            const boarding = await BoardingService.getBoardingByPet(petId);
+            return res.status(200).json(boarding);
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
     }
-  
-     const boarding = await BoardingService.getBoardingByPet(petId);
-     return res.status(200).json(boarding);
-}
-static async getBoardings(req, res) { 
-     const boarding = await BoardingService.getBoardings();
-     return res.status(200).json(boarding);
-} 
+
+    static async getBoardings(req, res) {
+        try {
+            const boarding = await BoardingService.getBoardings();
+            return res.status(200).json(boarding);
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
+    }
 
 }
 module.exports = BoardingController;
