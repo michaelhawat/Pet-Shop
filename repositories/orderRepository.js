@@ -42,6 +42,23 @@ static async getOrders(){
         throw new Error(error);
     }
 }
+static async userExist(userId) {
+    try {
+        let sql = `SELECT * FROM orders WHERE user_id = ? `;
+        const [rows] = await db.query(sql, [userId]);
+       console.log(rows);   
+       
+        if(rows){
+            return true  ;
+            
+        }
+        else
+        return false;
+    } catch (error) {
+        console.error('Error checking if user exists:', error);
+        throw error;
+    }
+}
 static async getOrderById(orderId){
     try {
        

@@ -5,7 +5,7 @@ class OrderService {
 
     static async createOrder(userId) {
         try {
-            if (await Order.findOne ({where : {user_id : userId}})== null) {
+            if (! await OrderRepository.userExist(userId)) {
                 throw new Error("User Id doesn't exist");
             }
             return OrderRepository.createOrder(userId);
@@ -19,7 +19,7 @@ class OrderService {
             if (await Order.findByPk(orderId) == null) {
                 throw new Error("Order Id doesn't exist");
             }
-            if (await Order.findOne ({where : {user_id : userId}}) == null) {
+            if (! await OrderRepository.userExist(userId) ) {
                 throw new Error("User Id doesn't exist");
             }
             return OrderRepository.updateOrder(orderId, userId);
@@ -49,7 +49,7 @@ class OrderService {
 
     static async getOrderByUserId(userId) {
         try {
-            if(await Order.findOne ({where : {user_id : userId}}) == null){
+            if(! await OrderRepository.userExist(userId)){
                 throw new Error("User Id doesn't exist");
             }
             return OrderRepository.getOrderByUserId(userId);
