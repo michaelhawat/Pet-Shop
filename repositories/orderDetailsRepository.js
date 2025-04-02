@@ -5,57 +5,91 @@ const OrderDetails = require('../models/orderDetailsModels');
 
 class OrderDetailsRepository {
   static async createOrderDetails(orderDetails) {
-    const sql = `INSERT INTO orderdetails 
-    (order_id, product_id, quantity) 
-    VALUES (?, ?, ?)`;
-    const {affectedRows} = await db.query(sql, [orderDetails.orderId, orderDetails.productId,orderDetails.quantity]);
+    try {
+      const sql = `INSERT INTO orderdetails 
+      (order_id, product_id, quantity) 
+      VALUES (?, ?, ?)`;
+      const { affectedRows } = await db.query(sql, [orderDetails.orderId, orderDetails.productId, orderDetails.quantity]);
 
-    return affectedRows;
+      return affectedRows;
+    } catch (error) {
+      console.error("Error in createOrderDetails:", error);
+      throw new Error(error);
+    }
   }
 
   static async updateOrderDetails(orderDetails) {
-    const sql = `UPDATE orderdetails SET 
-    order_id = ?,
-    product_id = ?,
-    quantity = ?
-    WHERE orderdetails_id = ?`;
-    const {affectedRows} = await db.query(sql, [orderDetails.orderId, orderDetails.productId,orderDetails.quantity, orderDetails.odId]);
+    try {
+      const sql = `UPDATE orderdetails SET 
+      order_id = ?,
+      product_id = ?,
+      quantity = ?
+      WHERE orderdetails_id = ?`;
+      const { affectedRows } = await db.query(sql, [orderDetails.orderId, orderDetails.productId, orderDetails.quantity, orderDetails.odId]);
 
-    return affectedRows;
+      return affectedRows;
+    } catch (error) {
+      console.error("Error in updateOrderDetails:", error);
+      throw new Error(error);
+    }
   }
 
   static async deleteOrderDetails(odId) {
-    return await db.query('DELETE FROM orderdetails WHERE orderdetails_id = ?', [odId]);
+    try {
+      return await db.query('DELETE FROM orderdetails WHERE orderdetails_id = ?', [odId]);
+    } catch (error) {
+      console.error("Error in deleteOrderDetails:", error);
+      throw new Error(error);
+    }
   }
 
   static async getOrderDetailsById(odId) {
-    const sql = `SELECT * FROM orderdetails WHERE orderdetails_id = ?`;
-   const rows= await db.query(sql, [odId]);
+    try {
+      const sql = `SELECT * FROM orderdetails WHERE orderdetails_id = ?`;
+      const rows = await db.query(sql, [odId]);
 
-    return rows;
+      return rows;
+    } catch (error) {
+      console.error("Error in getOrderDetailsById:", error);
+      throw new Error(error);
+    }
   }
+
   static async getOrderDetailsByOrderId(orderId) {
-    const sql = `SELECT * FROM orderdetails WHERE order_id = ?`;
-    const rows = await db.query(sql, orderId);
-    return rows;
+    try {
+      const sql = `SELECT * FROM orderdetails WHERE order_id = ?`;
+      const rows = await db.query(sql, orderId);
+      return rows;
+    } catch (error) {
+      console.error("Error in getOrderDetailsByOrderId:", error);
+      throw new Error(error);
+    }
   }
+
   static async getProductByOrderId(orderId) {
-    
+    try {
       const sql = `
           SELECT p.* FROM products p
           JOIN orderdetails od ON p.product_id = od.product_id
           WHERE od.order_id = ?
       `;
-      
       const products = await db.query(sql, [orderId]);
-      return  products;
+      return products;
+    } catch (error) {
+      console.error("Error in getProductByOrderId:", error);
+      throw new Error(error);
+    }
   }
 
-  static async getOrderDetails(){
-  const sql = `SELECT * FROM orderdetails`;
-  const rows = await db.query(sql);
-    return rows;
-
+  static async getOrderDetails() {
+    try {
+      const sql = `SELECT * FROM orderdetails`;
+      const rows = await db.query(sql);
+      return rows;
+    } catch (error) {
+      console.error("Error in getOrderDetails:", error);
+      throw new Error(error);
+    }
   }
 
     static async getTotalAmount(odId) {
@@ -81,11 +115,56 @@ class OrderDetailsRepository {
         return productPrice * quantity;
       } catch (error) {
         console.error("Error in getTotalAmount:", error);
-        return 0;
+        throw new Error(error);
       }
     }
-  
+  static async orderDetailsExist(odId) {
+    try {
+      const sql = `SELECT * FROM orderdetails WHERE orderdetails_id = ?`;
+      const [rows] = await db.query(sql, [odId]);
+
+      if (rows) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error("Error checking if order details exist:", error);
+      throw new Error(error);
+    }
   
 
   }
+  static async orderIdExist(orderId) {
+    try {
+      const sql = `SELECT * FROM orders WHERE order_id = ?`;
+      const [rows] = await db.query(sql, [orderId]);
+
+      if (rows) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error("Error checking if order ID exists:", error);
+      throw new Error(error);
+    }
+  }
+  static async productIdExist(productId) {
+    try {
+      const sql = `SELECT * FROM products WHERE product_id = ?`;
+      const [rows] = await db.query(sql, [productId]);
+
+      if (rows) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error("Error checking if product ID exists:", error);
+      throw new Error(error);
+    }
+  }
+  
+}
   module.exports = OrderDetailsRepository;
