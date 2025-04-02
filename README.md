@@ -48,7 +48,7 @@ Ensure you have the following installed on your system:
 
 4. **Start MariaDB and create a database**
    ```sql
-   CREATE DATABASE pet_shop;
+   CREATE DATABASE petshop_db;
    ```
 
 5. **Run database migrations (if applicable)**
@@ -138,6 +138,18 @@ Ensure you have the following installed on your system:
 | POST   | /               | Create a product             |
 | PUT    | /:pdId          | Update product details       |
 | DELETE | /:pdId          | Delete a product             |
+
+### **Payment Routes**
+| Method | Endpoint                 | Description                        |
+|--------|---------------------------|------------------------------------|
+| POST   | /                         | Create a payment                   |
+| GET    | /                         | Get all payments                   |
+| GET    | /:paymentId               | Get payment by ID                  |
+| PUT    | /:paymentId               | Update payment                     |
+| DELETE | /:paymentId               | Delete payment                     |
+| GET    | /User/:id                 | Get all payments by user ID        |
+| GET    | /date/:paymentDate        | Get payments by date               |
+| GET    | /dates/:startDate/:endDate | Get payments by date range        |
 
 ## 🧮 Technologies Used
 - **Node.js** - Backend runtime

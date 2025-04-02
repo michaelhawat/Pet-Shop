@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 class Utils {
 
     static formatDateSQL(date) {
-        return moment(date, 'YYYY-MM-DD HH:mm').format("YYYY-MM-DD hh:mm");
+        return moment(date, 'YYYY-MM-DD hh:mm').format("YYYY-MM-DD hh:mm");
     }
     static formatDate() {
         return moment().format("YYYY-MM-DD hh:mm");

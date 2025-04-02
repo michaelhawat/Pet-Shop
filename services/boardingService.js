@@ -3,7 +3,7 @@ const BoardingRepository = require('../repositories/boardingRepository');
 class BoardingService {
     static async createBoarding(boarding) {
         try {
-           if (!await BoardingRepository.boardingExists(boarding.checkIn, boarding.checkOut)) {
+           if (!await BoardingRepository.boardingExists(boarding.checkIn, boarding.petId)) {
               throw new Error('Boarding already exists');
              
            }
@@ -23,12 +23,15 @@ class BoardingService {
               throw new Error('Boarding Id does not exist');
             }
             console.log(boarding.boardingId);
-            
+            if (!await BoardingRepository.boardingExists(boarding.checkIn, boarding.petId)) {
+                throw new Error('Boarding already exists');
+               
+             }
             if (!await BoardingRepository.petExist(boarding.petId)) {
                 throw new Error('Pet does not exist');
             } 
             
-         
+            
              
              //console.log(await BoardingRepository.boardingIdExists(boarding.boardingId));
             return await BoardingRepository.updateBoarding(boarding);
@@ -50,9 +53,9 @@ class BoardingService {
 
     static async getBoardingByDate(checkIn) {
         try {
-            if(await BoardingRepository.boardingExists(checkIn) == false) {
-                throw new Error('Boarding does not exist');
-            }   
+            if (!await BoardingRepository.boardingDateExists(checkIn)) {
+                throw new Error('No boarding in this date ');
+            }
             return await BoardingRepository.getBoardingByDate(checkIn);
         } catch (error) {
             throw new Error(`Error in getBoardingByDate: ${error.message}`);

@@ -1,6 +1,7 @@
 const db = require('../config/db');
 const Utils = require('../utils/Utils');
 const Boardings = require('../models/boardingModel');
+const { EmptyResultError } = require('sequelize');
 
 class BoardingRepository {
 static async createBoarding(boarding) {
@@ -48,7 +49,11 @@ static async getBoardingByDate(checkIn) {
     try {
         const sql = `SELECT * FROM boarding WHERE check_in_date = ?`;
         const rows = await db.query(sql, [Utils.formatDateSQL(checkIn)]);
-        //console.log(rows);
+        const exist =await this.boardingDateExists(checkIn);
+            if(!rows.user_id == exist[1] || !exist ) {
+            throw new Error('boarding aleready exist');
+            }  
+        console.log(rows);
         return rows;
     } catch (error) {
         console.error('Error fetching boarding by date:', error);
@@ -78,17 +83,51 @@ static async getBoardings() {
     }
 }
 
-static async boardingExists(checkIn) {
+static async boardingExists(checkIn,petId) {
     try {
         
-        const [rows] = await this.getBoardingByDate(checkIn);
+        const sql =`SELECT * FROM boarding WHERE check_in_date = ? AND  pet_id = ?`;
+        const rows = await db.query(sql,[checkIn,petId])
+
        console.log(rows);
-        if (rows) {
+        if (rows == 0) {
             return true;
         } else {
             return false;
         }
 
+    } catch (error) {
+        console.error('Error checking if boarding exists:', error);
+        throw error;
+    }
+}
+static async boardingExists(checkIn,petId) {
+    try {
+        
+        const sql =`SELECT * FROM boarding WHERE check_in_date = ? AND  pet_id = ?`;
+        const rows = await db.query(sql,[checkIn,petId])
+       console.log(rows);
+        if (rows == 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    } catch (error) {
+        console.error('Error checking if boarding exists:', error);
+        throw error;
+    }
+}
+static async boardingDateExists(checkIn) {
+    try {
+        const sql = `SELECT * FROM boarding WHERE check_in_date = ?`;
+        const rows = await db.query(sql, [checkIn]); // Destructure rows correctly
+        console.log(rows);
+        if (rows) { // Check if rows is not empty
+            return [true, rows.boarding_id]; // Access the first row's boarding_id
+        } else {
+            return false;
+        }
     } catch (error) {
         console.error('Error checking if boarding exists:', error);
         throw error;
@@ -112,7 +151,7 @@ static async boardingIdExists(boardingId) {
 
 static async  petExist(petId) {
     try {
-        let sql = `SELECT * FROM boarding WHERE pet_id = ? `;
+        let sql = `SELECT * FROM pets WHERE pet_id = ? `;
         const [rows] = await db.query(sql, [petId]);
        console.log(rows);   
        
