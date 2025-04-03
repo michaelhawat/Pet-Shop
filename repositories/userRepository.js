@@ -6,6 +6,13 @@ const Token = require('../utils/Token');
 //const AppointmentRepository = require('../repositories/appointmentRepositories');
 
 class UserRepository{
+    /**
+     * create a new user in the database
+     * @param {object} user 
+     * @returns {number} affectedRows
+     * @throws {Error} if user already exists
+     * @throws {Error} if there is an error creating the user
+     */
     static async createUser(user) {
         try {
             const sql = `INSERT INTO users 
@@ -27,6 +34,14 @@ class UserRepository{
             throw error;
         }
     }
+    /** 
+    * Update an existing user in the database
+    * @param {object} user 
+    * @returns {number} affectedRows
+    * @throws {Error} if user ID does not exist
+    * @throws {Error} if email is already taken by another user
+    */
+   
 
     static async updateUser(user) {
         try {
@@ -57,7 +72,12 @@ class UserRepository{
             throw error;
         }
     }
-
+ /**
+     * Delete a user from the database
+     * @param {number} id - User ID
+     * @returns {object} result of deletion query
+     * @throws {Error} if user ID is not found
+     */
     static async deleteUser(id) {
         try {
             const exist = await this.idExist(id);
@@ -71,7 +91,13 @@ class UserRepository{
             throw error;
         }
     }
-
+/**
+     * Authenticate a user
+     * @param {string} email - User email
+     * @param {string} password - User password
+     * @returns {object} user data if authentication is successful
+     * @throws {Error} if user is not found or password is incorrect
+     */
     static async authenticate(email, password) {
         try {
             const sqlGet = `SELECT password FROM users WHERE email = ?`;
@@ -113,7 +139,13 @@ class UserRepository{
             throw error;
         }
     }
-
+ /**
+     * Check if a user ID exists in the database
+     * @param {number} id - User ID
+     * @returns {boolean} true if user exists, false otherwise
+     * @throws {Error} if there is an error checking the user ID
+     */
+    
     static async idExist(id) {
         try {
             let sql = `SELECT * FROM users WHERE user_id = ?`
@@ -128,7 +160,13 @@ class UserRepository{
             throw error;
         }
     }
-
+/**
+     * Check if a user exists in the database by email
+     * @param {string} email - User email
+     * @returns {Array} [true, user_id] if user exists, false otherwise
+     * @throws {Error} if there is an error checking the user
+     */
+    
     static async userExist(email) {
         try {
             let sql = `SELECT * FROM users WHERE email = ? `;
@@ -146,7 +184,15 @@ class UserRepository{
             throw error;
         }
     }
-
+ /**
+     * Change the password of a user
+     * @param {number} id - User ID
+     * @param {string} newPassword - New password
+     * @param {string} oldPassword - Old password
+     * @returns {number} affectedRows
+     * @throws {Error} if user ID is not found or old password is incorrect
+     */
+    
     static async changePassword(id, newPassword, oldPassword) {
         try {
             
@@ -194,7 +240,12 @@ static async testBcrypt(password, hash){
 }
 
 
-
+/**
+     * Retrieve all users from the database
+     * @returns {Array} List of users
+     * @throws {Error} if there is an error fetching users
+     */
+    
     static async readUsers() {
         try {
             const rows = await db.query('SELECT * FROM users');
@@ -205,7 +256,13 @@ static async testBcrypt(password, hash){
         }
     }
    
-    
+    /**
+     * Retrieve a specific user from the database
+     * @param {number} id - User ID
+     * @returns {object} User data
+     * @throws {Error} if user ID is not found
+     */
+
     static async readUser(id) {
         try {
         if(!await this.idExist(id)){

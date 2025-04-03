@@ -17,17 +17,20 @@ Ensure you have the following installed on your system:
 │   ├── controllers     # Business logic for API endpoints
 │   ├── models          # Database models and schema
 │   ├── routes          # Express routes
-│   ├── middleware      # Authentication, validation, etc.
+│   ├── validators      # Validation, etc.
 │   ├── utils           # Utility functions
 │── .env                # Environment variables
 │── package.json        # Dependencies and scripts
-│── server.js           # Entry point of the application
+│── index.js            # Entry point of the application
+|── .gitignore          # Git ignored files
+|── pet_shop.sql        # Database schema
+|── README.md           # Documentation
 ```
 
 ## 🚀 Installation & Setup
 1. **Clone the repository**
    ```sh
-   git clone https://github.com/yourusername/pet-shop-backend.git
+   git clone https://github.com/michaelhawat/Pet-Shop.git
    cd pet-shop-backend
    ```
 
@@ -39,7 +42,7 @@ Ensure you have the following installed on your system:
 3. **Configure environment variables**
    Create a `.env` file in the root directory and add the following:
    ```env
-   PORT=3000
+   PORT=3001
    DB_HOST=localhost
    DB_USER=root
    DB_PASSWORD=yourpassword
@@ -157,6 +160,14 @@ Ensure you have the following installed on your system:
 - **MariaDB** - Relational database
 - **Sequelize** - ORM for database interaction
 - **dotenv** - Environment variable management
+- **bcrypt** - A library to hash passwords and perform secure password comparisons.
+- **body-parser** - Middleware for parsing incoming request bodies, available under the `req.body` property.
+- **cors** - Middleware to enable Cross-Origin Resource Sharing (CORS) in your Express application.
+- **express-validator**- Middleware that wraps validator.js to validate and sanitize input data.
+- **jsonwebtoken** - Library for signing and verifying JSON Web Tokens (JWT) for authentication and authorization.
+- **nodemon** - A tool that automatically restarts your Node.js application when file changes are detected
+- **moment** - A library for parsing, validating, manipulating, and displaying dates in JavaScript.
+
 
 ## 📝 Best Practices Followed
 ✔️ Follows MVC architecture  

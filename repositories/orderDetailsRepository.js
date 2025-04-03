@@ -4,6 +4,12 @@ const OrderDetails = require('../models/orderDetailsModels');
 //const Product = require('../repositories/productRepository');
 
 class OrderDetailsRepository {
+   /**
+     * Create a new order details record in the database
+     * @param {object} orderDetails - Order details
+     * @returns {number} affectedRows
+     * @throws {Error} if there is an error creating the order details
+     */
   static async createOrderDetails(orderDetails) {
     try {
       const sql = `INSERT INTO orderdetails 
@@ -17,7 +23,12 @@ class OrderDetailsRepository {
       throw new Error(error);
     }
   }
-
+/**
+     * Update an existing order details record in the database
+     * @param {object} orderDetails - Order details
+     * @returns {number} affectedRows
+     * @throws {Error} if there is an error updating the order details
+     */
   static async updateOrderDetails(orderDetails) {
     try {
       const sql = `UPDATE orderdetails SET 
@@ -33,7 +44,12 @@ class OrderDetailsRepository {
       throw new Error(error);
     }
   }
-
+/**
+     * Delete an order details record from the database
+     * @param {number} odId - Order details ID
+     * @returns {number} affectedRows
+     * @throws {Error} if there is an error deleting the order details
+     */
   static async deleteOrderDetails(odId) {
     try {
       return await db.query('DELETE FROM orderdetails WHERE orderdetails_id = ?', [odId]);
@@ -42,7 +58,12 @@ class OrderDetailsRepository {
       throw new Error(error);
     }
   }
-
+/**
+     * Retrieve order details by a specific ID
+     * @param {number} odId - Order details ID
+     * @returns {Array} Order details record
+     * @throws {Error} if there is an error retrieving the order details
+     */
   static async getOrderDetailsById(odId) {
     try {
       const sql = `SELECT * FROM orderdetails WHERE orderdetails_id = ?`;
@@ -54,7 +75,12 @@ class OrderDetailsRepository {
       throw new Error(error);
     }
   }
-
+ /**
+     * Retrieve order details by a specific order ID
+     * @param {number} orderId - Order ID
+     * @returns {Array} List of order details associated with the order
+     * @throws {Error} if there is an error retrieving the order details
+     */
   static async getOrderDetailsByOrderId(orderId) {
     try {
       const sql = `SELECT * FROM orderdetails WHERE order_id = ?`;
@@ -65,7 +91,12 @@ class OrderDetailsRepository {
       throw new Error(error);
     }
   }
-
+/**
+     * Retrieve products by a specific order ID
+     * @param {number} orderId - Order ID
+     * @returns {Array} List of products associated with the order
+     * @throws {Error} if there is an error retrieving the products
+     */
   static async getProductByOrderId(orderId) {
     try {
       const sql = `
@@ -80,7 +111,11 @@ class OrderDetailsRepository {
       throw new Error(error);
     }
   }
-
+/**
+     * Retrieve all order details
+     * @returns {Array} List of all order details
+     * @throws {Error} if there is an error retrieving order details
+     */
   static async getOrderDetails() {
     try {
       const sql = `SELECT * FROM orderdetails`;
@@ -91,7 +126,12 @@ class OrderDetailsRepository {
       throw new Error(error);
     }
   }
-
+/**
+     * Calculate the total amount for a given order detail ID
+     * @param {number} odId - Order details ID
+     * @returns {number} Total amount
+     * @throws {Error} if there is an error calculating the total amount
+     */
     static async getTotalAmount(odId) {
       try {
         
@@ -118,6 +158,12 @@ class OrderDetailsRepository {
         throw new Error(error);
       }
     }
+     /**
+     * Check if an order details record exists in the database
+     * @param {number} odId - Order details ID
+     * @returns {boolean} true if order details exist, false otherwise
+     * @throws {Error} if there is an error checking for order details existence
+     */
   static async orderDetailsExist(odId) {
     try {
       const sql = `SELECT * FROM orderdetails WHERE orderdetails_id = ?`;
@@ -135,6 +181,12 @@ class OrderDetailsRepository {
   
 
   }
+   /**
+     * Check if an order ID exists in the database
+     * @param {number} orderId - Order ID
+     * @returns {boolean} true if order ID exists, false otherwise
+     * @throws {Error} if there is an error checking for order ID existence
+     */
   static async orderIdExist(orderId) {
     try {
       const sql = `SELECT * FROM orders WHERE order_id = ?`;
@@ -150,6 +202,12 @@ class OrderDetailsRepository {
       throw new Error(error);
     }
   }
+      /**
+     * Check if a product ID exists in the database
+     * @param {number} productId - Product ID
+     * @returns {boolean} true if product ID exists, false otherwise
+     * @throws {Error} if there is an error checking for product ID existence
+     */
   static async productIdExist(productId) {
     try {
       const sql = `SELECT * FROM products WHERE product_id = ?`;
