@@ -17,11 +17,7 @@ const validateUser = [
          .notEmpty()
          .withMessage('Phone is required'),
 
-    body('password')
-        .isStrongPassword()
-        .withMessage('Must be strong password')
-        .notEmpty()
-        .withMessage('Password is required'),
+    
     body('email')
         .isEmail()
         .withMessage('Invalid email format')

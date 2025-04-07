@@ -13,7 +13,7 @@ try {
         user_id: userId,
         order_date: Utils.formatDate()
     });
-    return addOrder;
+   
 } catch (error) {
     console.log(error);
     throw new Error(error);
@@ -44,7 +44,7 @@ static async getOrders(){
 }
 static async userExist(userId) {
     try {
-        let sql = `SELECT * FROM orders WHERE user_id = ? `;
+        let sql = `SELECT * FROM users WHERE user_id = ? `;
         const [rows] = await db.query(sql, [userId]);
        console.log(rows);   
        

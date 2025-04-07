@@ -21,6 +21,9 @@ class UserService{
 
     static async deleteUser(id) {
         try {
+            if (!await UserRepository.idExist(id)) {
+                throw new Error("User Id not found");
+            }
             return await UserRepository.deleteUser(id);
         } catch (error) {
             throw new Error(`Error deleting user: ${error.message}`);
@@ -29,6 +32,7 @@ class UserService{
 
     static async changePassword(id, newPassword, oldPassword) {
         try {
+            
             return await UserRepository.changePassword(id, newPassword, oldPassword);
         } catch (error) {
             throw new Error(`Error changing password: ${error.message}`);

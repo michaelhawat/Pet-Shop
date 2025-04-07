@@ -4,11 +4,11 @@ const Payment = require('../models/paymentModel');
 class PaymentService{
     static async createPayment(odId, userId, paymentMethod,paymentDate){
         try{
-            if(!await PaymentRepository.odExist(odId) ){
+            if(! await PaymentRepository.odExist(odId) ){
                
                 throw new Error("Order details Id doesn't exist");
             }
-            if(!await PaymentRepository.userExist(userId)){
+            if(! await PaymentRepository.userExist(userId)){
                 throw new Error("User Id doesn't exist");
             }
             return PaymentRepository.createPayment(odId, userId, paymentMethod,paymentDate);

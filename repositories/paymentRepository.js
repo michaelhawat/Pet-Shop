@@ -183,7 +183,7 @@ static async getPaymentsByDate(paymentDate) {
  */
 static async odExist(odId) {    
         try {
-            let sql = `SELECT * FROM orderdeatils WHERE orderdetails_id = ? `;
+            let sql = `SELECT * FROM orderdetails WHERE orderdetails_id = ? `;
             const rows = await db.query(sql, [odId]);
             console.log(rows);   
             if(rows.length > 0){

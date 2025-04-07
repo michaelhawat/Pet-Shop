@@ -49,19 +49,18 @@ class UserRepository{
             first_name = ?,
             last_name = ?,
             email = ?,
-            phone = ?,
-            password = ?,
+            phone = ?, 
             dob = ?
             WHERE user_id = ?`;
             if(!await this.idExist(user.id)){
                 throw new Error("User Id not found");
             }
-            const hashedPassword = await Utils.hashedPassword(user.password);
+           // const hashedPassword = await Utils.hashedPassword(user.password);
             const exist = await this.userExist(user.email);
             console.log(exist[1]);
             if(user.id == exist[1] || !exist){
             const {affectedRows} = await db.query(sql, 
-                [user.firstName,user.lastName,user.email,user.phone ,hashedPassword, user.dob,user.id]);
+                [user.firstName,user.lastName,user.email,user.phone , user.dob,user.id]);
 
             return affectedRows;
             }
@@ -80,12 +79,9 @@ class UserRepository{
      */
     static async deleteUser(id) {
         try {
-            const exist = await this.idExist(id);
-            console.log(exist);
-            if(exist)
+            
             return await db.query('DELETE FROM users WHERE user_id = ?', [id]);
-        else
-        throw new Error("User Id not found");
+          
         } catch (error) {
             console.error('Error deleting user:', error);
             throw error;
@@ -150,10 +146,11 @@ class UserRepository{
         try {
             let sql = `SELECT * FROM users WHERE user_id = ?`
             const [rows] = await db.query(sql, [id]);
-          
+          console.log(rows);
             if(rows ){
                 return true;
             }
+            else
             return false;
         } catch (error) {
             console.error('Error checking if ID exists:', error);
@@ -198,7 +195,7 @@ class UserRepository{
             
             const sqlGet = `SELECT password FROM users WHERE user_id = ?`;
             const [rows] = await db.query(sqlGet, [id]);
-
+            
             console.log(oldPassword);
             
             if (rows.length === 0) {

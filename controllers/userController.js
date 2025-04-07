@@ -5,9 +5,9 @@ const User = require("../models/userModel");
 class UserController{
     static async createUser(req, res) {
         try {
-            const { firstName, lastName, email, phone, password,dob } = req.body;
+            const { firstName, lastName, email, phone, newPassword,dob } = req.body;
            
-            var user = new User(0, firstName, lastName, email, phone, password,dob);
+            var user = new User(0, firstName, lastName, email, phone, newPassword,dob);
             const result = await UserService.createUser(user);
             res.status(200).json({ message: `user ${firstName} created successfully` });
         } catch (error) {
@@ -31,9 +31,9 @@ class UserController{
     static async updateUser(req, res) {
         try {
             const { id } = req.params;
-            const { firstName, lastName, email, phone, password ,dob} = req.body;
+            const { firstName, lastName, email, phone ,dob} = req.body;
            
-            var user = new User(id, firstName, lastName, email, phone, password ,dob);
+            var user = new User(id, firstName, lastName, email, phone ,0,dob);
             const result = await UserService.updateUser(user);
             res.status(201).json({ result, message: `The ${id} id have been updated` });
         } catch (error) {
