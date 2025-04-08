@@ -1,7 +1,7 @@
 # 🐾 Pet Shop Management System
 
 ## 📌 Overview
-This project is a **Node.js** application that interacts with a **MariaDB** database to manage a pet shop business. It includes features for pet grooming, pet boarding, product sales, and customer management. The backend follows best practices for structuring a scalable and secure service, incorporating database management, RESTful API development, and authentication.
+This project is a **Node.js** application that interacts with a **MariaDB** database to manage a pet shop business. It includes features for pet services, pet boarding, product sales, and customer management. The backend follows best practices for structuring a scalable and secure service, incorporating database management, RESTful API development, and authentication.
 
 ## 🫠 Prerequisites
 Ensure you have the following installed on your system:

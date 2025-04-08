@@ -31,7 +31,7 @@ class PetRepository{
  */
     static async idExist(id) {
         try {
-            let sql = `SELECT * FROM pets WHERE user_id = ?`
+            let sql = `SELECT * FROM users WHERE user_id = ?`
             const [rows] = await db.query(sql, [id]);
           
             if(rows ){
