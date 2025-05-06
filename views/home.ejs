@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+    .dog-image {
+        position:absolute;
+        top: 20%;
+        left: 15%;
+        width: 60px;
+        opacity: 0.3;
+        animation: moveAcross 11s linear infinite;
+        z-index: 0;
+    }
+    
+    @keyframes moveAcross {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(100vw);
+        }
+    }
+    .cat-image {
+        position:absolute;
+        top: 20%;
+        left: 10%;
+        width: 60px;
+        opacity: 0.3;
+        animation: moveAcross 11s linear infinite;
+        z-index: 0;
+    }
+    
+    @keyframes moveAcross {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(100vw);
+        }
+    }
+    .bird-image {
+        position:absolute;
+        top: 20%;
+        left: 5%;
+        width: 60px;
+        opacity: 0.3;
+        animation: moveAcross 11s linear infinite;
+        z-index: 0;
+    }
+    
+    @keyframes moveAcross {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(100vw);
+        }
+    }
+    </style>
+
+</head>
+
+<body>
+
+    <%- include ('partials/header') %>
+
+        <!--                             <td>
+ -->
+        <div class="container col-xxl-8 px-4 py-5"
+            style="background-image: url('/images/background.jpg'); background-size: cover; background-position: center;">
+            <img src="/images/dogpix.png" alt="Floating Paw" class="dog-image">
+            <img src="/images/catpix.jpeg" alt="Floating Paw" class="cat-image">
+            <img src="/images/birdpix.jpg" alt="Floating Paw" class="bird-image">
+            <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+                <div class="col-10 col-sm-8 col-lg-6"> <img src="/images/pets.webp" class="d-block mx-lg-auto img-fluid"
+                        alt="Bootstrap Themes" width="700" height="500" loading="lazy"> </div>
+                <div class="col-lg-6">
+                    <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Everything Your Pet
+                        Needs & Loves
+                    </h1>
+                    <p class="lead text-dark ">Your one-stop shop for all your pet needs. From premium food to fun toys, we have
+                        everything to keep your furry, feathery, or scaly friend happy.</p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start"> <button type="button"
+                            class="btn btn-dark btn-lg px-3 me-md-2">Shop Now</button> <button type="button"
+                            class="btn btn-outline-secondary btn-lg px-4">Learn More</button> </div>
+                </div>
+            </div>
+        </div>
+        <!--                             <td>
+ -->
+        <div class="container px-4 py-5" id="featured-3">
+            <h2 class="pb-2 border-bottom">Columns with icons</h2>
+            <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+                <div class="feature col">
+                    <div
+                        class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+                        <svg class="bi" width="1em" height="1em" aria-hidden="true">
+                            <use xlink:href="#collection"></use>
+                        </svg>
+                    </div>
+                    <h3 class="fs-2 text-body-emphasis">Featured title</h3>
+                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another
+                        sentence and probably just keep going until we run out of words.</p>
+                    <a href="#" class="icon-link">
+                        Call to action
+                        <svg class="bi" aria-hidden="true">
+                            <use xlink:href="#chevron-right"></use>
+                        </svg>
+                    </a>
+                </div>
+                <div class="feature col">
+                    <div
+                        class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+                        <svg class="bi" width="1em" height="1em" aria-hidden="true">
+                            <use xlink:href="#people-circle"></use>
+                        </svg>
+                    </div>
+                    <h3 class="fs-2 text-body-emphasis">Featured title</h3>
+                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another
+                        sentence and probably just keep going until we run out of words.</p>
+                    <a href="#" class="icon-link">
+                        Call to action
+                        <svg class="bi" aria-hidden="true">
+                            <use xlink:href="#chevron-right"></use>
+                        </svg>
+                    </a>
+                </div>
+                <div class="feature col">
+                    <div
+                        class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+                        <svg class="bi" width="1em" height="1em" aria-hidden="true">
+                            <use xlink:href="#toggles2"></use>
+                        </svg>
+                    </div>
+                    <h3 class="fs-2 text-body-emphasis">Featured title</h3>
+                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another
+                        sentence and probably just keep going until we run out of words.</p>
+                    <a href="#" class="icon-link">
+                        Call to action
+                        <svg class="bi" aria-hidden="true">
+                            <use xlink:href="#chevron-right"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <%- include('partials/footer') %>
+</body>
+
+</html>

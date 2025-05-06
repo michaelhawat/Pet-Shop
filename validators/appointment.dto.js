@@ -19,7 +19,7 @@ body('appDate')
    .withMessage('Appointment date is required'),
 body('services')  
    .isIn(['Grooming', 'Vaccination', 'Training', 'Checkup']) 
-   .withMessage('Services not available')   
+   .withMessage('The services are Grooming, Vaccination, Training, Checkup ')   
     .notEmpty()
     .withMessage('Services are required'),
     (req,res,next)=>{

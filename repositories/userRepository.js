@@ -128,7 +128,7 @@ class UserRepository{
 
             const [result] = await db.query(sql, [email, hash]);
             
-            return result  ;
+            return ["Login succesfuly " ,Token.verifyToken(token)]  ;
 
         } catch (error) {
             console.error('Error authenticating user:', error);
