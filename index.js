@@ -20,11 +20,14 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
-
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
 app.use(cors());
 app.use(bodyParser.json());
 const PetService = require('./services/petService');
+const Product = require("./models/productModel");
+const ProductService = require("./services/productService");
 
 app.use('/api/pets',petRoutes);
 app.use('/api/app', appRoutes);
@@ -48,10 +51,63 @@ app.get('/', async (req, res) => {
          res.status(500).send('Internal Server Error');
  }
  });
+ 
+    
+app.get('/dogProducts.ejs', async (req, res) => {    
+   try {
+    const product = await ProductService.getAllProducts();
+    
+    res.render('dogProducts', { message : 'Dog products' , product : product }); 
+   } catch (error) {
+    console.log(error);
+   }
+   
+ 
+ });
+ app.get('/catProducts.ejs', async (req, res) => {    
+    try {
+     const product = await ProductService.getAllProducts();
+     
+     res.render('catProducts', { message : 'cat products' , product : product }); 
+    } catch (error) {
+     console.log(error);
+    }
+    
+  
+  });
+  app.get('/birdProducts.ejs', async (req, res) => {    
+    try {
+     const product = await ProductService.getAllProducts();
+     
+     res.render('birdProducts', { message : 'Bird products' , product : product }); 
+    } catch (error) {
+     console.log(error);
+    }
+    
+  
+  });
+ 
+ app.get('/signIn.ejs', async (req,res)=>{
+try {
+    
+    res.render('signIn', { message : 'Welcome to the Home Page'  });
+} catch (error) {
+    console.log(error);
+}
+ });
+ app.get('/signUp.ejs', async (req,res)=>{
+    try {
+        
+        res.render('signUp', { message : 'Welcome to the Home Page'  });
+    } catch (error) {
+        console.log(error);
+    }
+     });
+
 app.get('/users.ejs', async (req, res) => {    
    const users = await UserService.readUsers();
     const pets = await PetService.getAllPets();
-    res.render('users.ejs', { message : 'Welcome to the Home Page' , users : users , pets : pets});
+    res.render('users', { message : 'Welcome to the Home Page' , users : users , pets : pets});
 
 });
 

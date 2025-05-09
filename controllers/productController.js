@@ -61,6 +61,15 @@ catch(error){
         return res.status(500).json({status: 500, message: error.message});       }
     
 }
-}
 
+static async productsView(req, res) {
+    try {
+        const products = await productService.getAllProducts();
+        res.render('products.ejs', { products });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+}
 module.exports =  ProductController;

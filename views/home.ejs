@@ -2,153 +2,319 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <style>
-    .dog-image {
-        position:absolute;
-        top: 20%;
-        left: 15%;
-        width: 60px;
-        opacity: 0.3;
-        animation: moveAcross 11s linear infinite;
-        z-index: 0;
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <style>
+    @media (max-width: 768px) {
+      .hero-section {
+        height: 50vh !important;
+      }
+
+      .hero-section h1 {
+        font-size: 2rem !important;
+      }
+
+      .hero-section p {
+        font-size: 1rem !important;
+      }
     }
-    
-    @keyframes moveAcross {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(100vw);
-        }
-    }
-    .cat-image {
-        position:absolute;
-        top: 20%;
-        left: 10%;
-        width: 60px;
-        opacity: 0.3;
-        animation: moveAcross 11s linear infinite;
-        z-index: 0;
-    }
-    
-    @keyframes moveAcross {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(100vw);
-        }
-    }
+
+    .dog-image,
+    .cat-image,
     .bird-image {
-        position:absolute;
-        top: 20%;
-        left: 5%;
-        width: 60px;
-        opacity: 0.3;
-        animation: moveAcross 11s linear infinite;
-        z-index: 0;
+      position: absolute;
+      top: 0;
+      width: 60px;
+      opacity: 0.3;
+      z-index: 1;
+      transition: transform 0.3s ease, opacity 0.3s ease;
     }
-    
-    @keyframes moveAcross {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(100vw);
-        }
+
+    /* hover effect */
+    .dog-image:hover,
+    .bird-image:hover {
+      transform: scale(1.3) rotate(10deg);
+      opacity: 0.5;
     }
-    </style>
+
+    .cat-image:hover {
+      transform: scale(1.3) rotate(-10deg);
+      opacity: 0.5;
+    }
+
+    /* dog */
+    .dog-image {
+      animation: moveDog 12s infinite linear;
+    }
+
+    @keyframes moveDog {
+      from {
+        left: 20%;
+      }
+
+      to {
+        left: 100%;
+      }
+    }
+
+    /* cat */
+    .cat-image {
+      animation: moveCat 12s infinite linear;
+    }
+
+    @keyframes moveCat {
+      from {
+        left: 10%;
+      }
+
+      to {
+        left: 90%;
+      }
+    }
+
+    /* bird */
+    .bird-image {
+      animation: moveBird 12s infinite linear;
+    }
+
+    @keyframes moveBird {
+      from {
+        left: 0;
+      }
+
+      to {
+        left: 80%;
+      }
+    }
+
+    .card-hover:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .floating-img {
+      transform-origin: center center;
+      animation: floatUpDown 3s ease-in-out infinite;
+
+    }
+
+    @keyframes floatUpDown {
+      0% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-15px);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+    .service-btn {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;  /* Controls the size of the text */
+    padding: 0;  
+    transition: transform 0.3s ease;
+    /* Remove any additional padding */
+}
+
+.service-btn i {
+    font-size: 1rem;  /* Controls the size of the icons */
+}
+.service-btn:hover {
+    transform: scale(1.1); /* Slightly increase the size */
+    opacity: 0.9; /* Slight transparency */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow for a floating effect */
+}
+    /* pause the float when hovering, then zoom */
+    @keyframes floatIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+  </style>
 
 </head>
 
 <body>
 
-    <%- include ('partials/header') %>
+  
+  <%- include ('partials/header') %>
+    <script>
+      // Show the button when scrolled down
+      window.onscroll = function () {
+        const btn = document.getElementById("backToTopBtn");
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+          btn.style.display = "block";
+        } else {
+          btn.style.display = "none";
+        }
+      };
 
-        <!--                             <td>
- -->
-        <div class="container col-xxl-8 px-4 py-5"
-            style="background-image: url('/images/background.jpg'); background-size: cover; background-position: center;">
-            <img src="/images/dogpix.png" alt="Floating Paw" class="dog-image">
-            <img src="/images/catpix.jpeg" alt="Floating Paw" class="cat-image">
-            <img src="/images/birdpix.jpg" alt="Floating Paw" class="bird-image">
-            <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-                <div class="col-10 col-sm-8 col-lg-6"> <img src="/images/pets.webp" class="d-block mx-lg-auto img-fluid"
-                        alt="Bootstrap Themes" width="700" height="500" loading="lazy"> </div>
-                <div class="col-lg-6">
-                    <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Everything Your Pet
-                        Needs & Loves
-                    </h1>
-                    <p class="lead text-dark ">Your one-stop shop for all your pet needs. From premium food to fun toys, we have
-                        everything to keep your furry, feathery, or scaly friend happy.</p>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-start"> <button type="button"
-                            class="btn btn-dark btn-lg px-3 me-md-2">Shop Now</button> <button type="button"
-                            class="btn btn-outline-secondary btn-lg px-4">Learn More</button> </div>
-                </div>
+      // Scroll smoothly to top
+      function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    </script>
+    <!--              Main            -->
+
+    <section class="hero-section  position-relative text-dark ">
+      <div class="container col-xxl-8 px-4 py-5 position-relative"
+        style="background-image: url('/images/background.jpg'); background-size: cover; background-position: center; overflow: hidden;">
+        <a href="./dogProducts.ejs">
+          <img src="/images/dogpix.png" alt="Floating Paw" class="dog-image">
+        </a>
+        <a href="./catProducts.ejs">
+
+          <img src="/images/catpix.png" alt="Floating Paw" class="cat-image">
+
+        </a>
+        <a href="./birdProducts.ejs">
+          <img src="/images/birdpix.png" alt="Floating Paw" class="bird-image">
+        </a>
+
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+          <div class="col-10 col-sm-8 col-lg-6">
+
+            <img src="/images/pets.webp" 
+     class="d-block mx-lg-auto img-fluid floating-img" 
+     alt="Pets" 
+     width="700" 
+     height="500" 
+     loading="lazy"
+     data-aos="zoom-in" 
+     data-aos-duration="3000">
+
+          </div>
+          <div class="col-lg-6" data-aos="fade-up" data-aos-duration="3000">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Everything Your Pet
+              <span class="text-secondary">Needs</span> & Loves
+            </h1>
+            <p class="lead text-dark">Your one-stop shop for all your pet needs. From premium food to fun toys,
+              we have everything to keep your furry, feathery, or scaly friend happy.</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+              <button type="button" class="btn btn-dark btn-lg px-3 me-md-2">Shop Now</button>
+              <button type="button" class="btn btn-outline-secondary btn-lg px-3">Learn More</button>
             </div>
+          </div>
         </div>
-        <!--                             <td>
- -->
-        <div class="container px-4 py-5" id="featured-3">
-            <h2 class="pb-2 border-bottom">Columns with icons</h2>
-            <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-                <div class="feature col">
-                    <div
-                        class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
-                        <svg class="bi" width="1em" height="1em" aria-hidden="true">
-                            <use xlink:href="#collection"></use>
-                        </svg>
-                    </div>
-                    <h3 class="fs-2 text-body-emphasis">Featured title</h3>
-                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another
-                        sentence and probably just keep going until we run out of words.</p>
-                    <a href="#" class="icon-link">
-                        Call to action
-                        <svg class="bi" aria-hidden="true">
-                            <use xlink:href="#chevron-right"></use>
-                        </svg>
-                    </a>
-                </div>
-                <div class="feature col">
-                    <div
-                        class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
-                        <svg class="bi" width="1em" height="1em" aria-hidden="true">
-                            <use xlink:href="#people-circle"></use>
-                        </svg>
-                    </div>
-                    <h3 class="fs-2 text-body-emphasis">Featured title</h3>
-                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another
-                        sentence and probably just keep going until we run out of words.</p>
-                    <a href="#" class="icon-link">
-                        Call to action
-                        <svg class="bi" aria-hidden="true">
-                            <use xlink:href="#chevron-right"></use>
-                        </svg>
-                    </a>
-                </div>
-                <div class="feature col">
-                    <div
-                        class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
-                        <svg class="bi" width="1em" height="1em" aria-hidden="true">
-                            <use xlink:href="#toggles2"></use>
-                        </svg>
-                    </div>
-                    <h3 class="fs-2 text-body-emphasis">Featured title</h3>
-                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another
-                        sentence and probably just keep going until we run out of words.</p>
-                    <a href="#" class="icon-link">
-                        Call to action
-                        <svg class="bi" aria-hidden="true">
-                            <use xlink:href="#chevron-right"></use>
-                        </svg>
-                    </a>
-                </div>
-            </div>
+      </div>
+     <!--            2 view              -->
+<div class="container py-5">
+  <h1 class="pb-2 text-center">Services</h1>
+  <div class="d-flex gap-4 justify-content-center" data-aos="fade-up">
+    <button class="service-btn btn btn-dark rounded-pill" type="button">
+      <a href="/boarding" class="text-decoration-none text-white">
+        <i class="bi bi-house-door-fill"></i> Boarding
+      </a>
+    </button>
+    <button class="service-btn btn btn-secondary rounded-pill" type="button">
+      <a href="/boarding" class="text-decoration-none text-white">
+        <i class="bi bi-calendar-event"></i> Appointments
+      </a>
+    </button>
+    <button class="service-btn btn btn-dark rounded-pill" type="button">
+      <a href="/boarding" class="text-decoration-none text-white">
+        <i class="bi bi-scissors"></i> Grooming
+      </a>
+    </button>
+    <button class="service-btn btn btn-secondary rounded-pill" type="button">
+      <a href="/boarding" class="text-decoration-none text-white">
+        <i class="bi bi-person-check-fill"></i> Training
+      </a>
+    </button>
+    <button class="service-btn btn btn-dark rounded-pill" type="button">
+      <a href="/boarding" class="text-decoration-none text-white">
+        <i class="bi bi-heart-fill"></i> Pet Care
+      </a>
+    </button>
+  </div>
+</div>
+
+<!--            3 view              -->
+<div class="container px-4 py-5" id="custom-cards" style="background-color: #f0f0f0;">
+  <h1 class="pb-2 text-center">Shop by Pet</h1>
+  <p class="lead text-center border-bottom">
+    Find the perfect products for your beloved pets, <br>
+    from nutritious food to engaging toys and comfortable accessories.
+  </p>
+  <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+    <div class="col" data-aos="zoom-in">
+      <a href="./dogProducts.ejs" class="text-decoration-none">
+        <div class="card shadow-sm rounded-4 card-hover" style="width: 18rem;">
+          <img src="/images/dogs.jpg" class="card-img-top" alt="Dogs">
+          <div class="card-body text-center">
+            <h5 class="card-title text-dark">Dogs</h5>
+            <p class="card-text text-muted">Food, toys & accessories for your canine companion</p>
+          </div>
         </div>
-        <%- include('partials/footer') %>
+      </a>
+    </div>
+    <div class="col" data-aos="zoom-in" data-aos-delay="100">
+      <a href="./catProducts.ejs" class="text-decoration-none">
+        <div class="card shadow-sm rounded-4 card-hover" style="width: 18rem;">
+          <img src="/images/cats.jpg" class="card-img-top" alt="Cats">
+          <div class="card-body text-center">
+            <h5 class="card-title text-dark">Cat</h5>
+            <p class="card-text text-muted">Treats, toys & supplies for your feline friend</p>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col" data-aos="zoom-in" data-aos-delay="200">
+      <a href="./birdProducts.ejs" class="text-decoration-none">
+        <div class="card shadow-sm rounded-4 card-hover" style="width: 18rem;">
+          <img src="/images/birds.jpg" class="card-img-top" alt="Birds">
+          <div class="card-body text-center">
+            <h5 class="card-title text-dark">Birds</h5>
+            <p class="card-text text-muted">Everything for your small companions</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Scroll to Top Button -->
+<button onclick="scrollToTop()" id="backToTopBtn" class="btn btn-dark rounded-circle shadow"
+  style="position: fixed; bottom: 20px; right: 20px; display: none; z-index: 999;">
+  <i class="bi bi-arrow-up" style="font-size: 1rem;"></i>
+</button>
+
+<!-- AOS JS (Place before </body>) -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 3000,
+    once: true
+  });
+</script>
+
+
+      <!--               4 view                  -->
+
+      <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+      <script>
+        AOS.init();
+      </script>
+    <%- include('partials/footer') %>
 </body>
 
 </html>

@@ -20,4 +20,5 @@ router.put('/:pdId',validateProduct,validateProductId, productController.updateP
 // Delete a product by ID
 router.delete('/:pdId',validateProductId, productController.deleteProduct);
 
+ router.get('productsView',productController.productsView);
 module.exports = router;

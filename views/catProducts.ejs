@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    <title>Cat Products</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+</head>
+
+<body>
+    <%- include ('partials/header') %>
+        <div class="container">
+            <h1>
+                <%= message %>
+            </h1>
+            <table class="table table-striped table-dark table-lg">
+                <thead>
+                    <tr>
+
+                        <th class="text-success">Product Name</th>
+                        <th class="text-primary">Product Price</th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let i=0; i < product.length; i++) { %>
+                     <% if(product[i].category == 'Cat') { %>
+                         
+                        
+                        <tr>
+                          
+                            <td>
+                                <%= product[i].pd_name %>
+                            </td>
+                            <td>
+                                <P><%= product[i].pd_price %>$</P>
+                            </td>
+                            <td>
+                                <%= //product[i].category%>
+                                </td>
+                           
+                        </tr>
+                        <% } %>
+                        <% } %>
+                </tbody>
+            </table>
+            
+        <%- include('partials/footer') %>
+</body>
+
+</html>

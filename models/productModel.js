@@ -17,7 +17,11 @@ Product.init({
         type:DataTypes.DECIMAL,
         allowNull:false
 
-    }
+    },
+    category:{
+        type:DataTypes.STRING,
+        allowNull:true
+    },
  }, {
         sequelize,
         modelName:'Product',
