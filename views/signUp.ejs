@@ -42,6 +42,7 @@
       }
       
     </style>
+    
   </head>
   <body class="bg-dark">
     <div
@@ -50,7 +51,7 @@
       data-aos-duration="2000"  
     >
       <div class="w-100" style="max-width: 400px">
-        <form action="/signup" method="POST" class="form-card p-3 p-sm-4">
+        <form action="/api/users/signUp" method="POST" class="form-card p-3 p-sm-4">
           <!-- Brand & Welcome -->
           <div class="text-center mb-3">
             <a href="/">
@@ -87,10 +88,37 @@
               class="form-control rounded-3"
               id="floatingPassword"
               placeholder="Password"
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+              title="Password must be at least 8 characters and include uppercase, lowercase, number, and special character"
+
               required
             />
             <label for="floatingPassword">Password</label>
-          </div>
+            <button
+            type="button"
+            class="btn position-absolute top-50 end-0 translate-middle-y me-3 p-0 border-0 bg-transparent"
+            onclick="togglePassword('floatingPassword', 'toggleIcon')"
+            style="z-index: 10"
+          >
+            <i id="toggleIcon" class="bi bi-eye-fill"></i>
+          </button>
+                  </div>
+                  <script>
+                    function togglePassword(inputId, iconId) {
+                      const input = document.getElementById(inputId);
+                      const icon = document.getElementById(iconId);
+                  
+                      if (input.type === "password") {
+                        input.type = "text";
+                        icon.classList.remove("bi-eye-fill");
+                        icon.classList.add("bi-eye-slash-fill");
+                      } else {
+                        input.type = "password";
+                        icon.classList.remove("bi-eye-slash-fill");
+                        icon.classList.add("bi-eye-fill");
+                      }
+                    }
+                  </script>
 
           <!-- Confirm Password -->
           <div class="form-floating mb-1">
@@ -100,11 +128,54 @@
               class="form-control rounded-3"
               id="floatingConfirmPassword"
               placeholder="Confirm Password"
+              
               required
             />
             <label for="floatingConfirmPassword">Confirm Password</label>
-          </div>
+            <span id="error-message" style="color: red; font-size: 0.9rem; display: none;">Passwords do not match.</span>
+            <button
+            type="button"
+            class="btn position-absolute top-50 end-0 translate-middle-y me-3 p-0 border-0 bg-transparent"
+            onclick="togglePassword('floatingConfirmPassword', 'toggleIcon2')"
+            style="z-index: 10"
+          >
+            <i id="toggleIcon2" class="bi bi-eye-fill"></i>
+          </button>
+                  </div>
+                  <script>
+                    function togglePassword(inputId, iconId) {
+                      const input = document.getElementById(inputId);
+                      const icon = document.getElementById(iconId);
+                  
+                      if (input.type === "password") {
+                        input.type = "text";
+                        icon.classList.remove("bi-eye-fill");
+                        icon.classList.add("bi-eye-slash-fill");
+                      } else {
+                        input.type = "password";
+                        icon.classList.remove("bi-eye-slash-fill");
+                        icon.classList.add("bi-eye-fill");
+                      }
+                    }
+                  </script>
+                  <script>
+                   const form = document.querySelector("form");
+const passwordInput = document.getElementById("floatingPassword");
+const confirmPasswordInput = document.getElementById("floatingConfirmPassword");
+const errorMessage = document.getElementById("error-message");
 
+form.addEventListener("submit", function (e) {
+  if (passwordInput.value !== confirmPasswordInput.value) {
+    e.preventDefault(); // Stop form submission
+    errorMessage.style.display = "block"; // Show the error message
+    confirmPasswordInput.focus(); // Focus the Confirm Password field
+  } else {
+    errorMessage.style.display = "none"; // Hide the error message if the passwords match
+  }
+                     });
+
+                  </script>
+                  
           <!-- Sign Up Button -->
           <button
             class="w-100 btn btn-danger btn-lg rounded-3 mb-2"

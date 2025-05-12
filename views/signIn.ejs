@@ -49,7 +49,7 @@
       data-aos-duration="2000"  
     >
       <div class="w-100" style="max-width: 400px">
-        <form action="/signin" method="POST" class="form-card p-3 p-sm-4">
+        <form action="/api/users/signIn" method="POST" class="form-card p-3 p-sm-4">
           <!-- Brand & Welcome -->
           <div class="text-center mb-3">
             <a href="/">
@@ -86,11 +86,37 @@
               class="form-control rounded-3"
               id="floatingPassword"
               placeholder="Password"
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+              title="Password must be at least 8 characters and include uppercase, lowercase, number, and special character"
               required
             />
             <label for="floatingPassword">Password</label>
+            <button
+    type="button"
+    class="btn position-absolute top-50 end-0 translate-middle-y me-3 p-0 border-0 bg-transparent"
+    onclick="togglePassword('floatingPassword', 'toggleIcon')"
+    style="z-index: 10"
+  >
+    <i id="toggleIcon" class="bi bi-eye-fill"></i>
+  </button>
           </div>
-
+          <script>
+            function togglePassword(inputId, iconId) {
+              const input = document.getElementById(inputId);
+              const icon = document.getElementById(iconId);
+          
+              if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("bi-eye-fill");
+                icon.classList.add("bi-eye-slash-fill");
+              } else {
+                input.type = "password";
+                icon.classList.remove("bi-eye-slash-fill");
+                icon.classList.add("bi-eye-fill");
+              }
+            }
+          </script>
+          
           <!-- Remember Me -->
           <div class="form-check mb-2">
             <input

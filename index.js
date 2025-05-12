@@ -29,6 +29,8 @@ const PetService = require('./services/petService');
 const Product = require("./models/productModel");
 const ProductService = require("./services/productService");
 
+app.use(express.urlencoded({ extended: true }));
+
 app.use('/api/pets',petRoutes);
 app.use('/api/app', appRoutes);
 app.use('/api/payments', paymentRoutes);
@@ -86,7 +88,7 @@ app.get('/dogProducts.ejs', async (req, res) => {
     
   
   });
- 
+  
  app.get('/signIn.ejs', async (req,res)=>{
 try {
     

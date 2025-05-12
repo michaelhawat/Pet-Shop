@@ -17,7 +17,8 @@ class Utils {
         return moment().format("YYYY-MM-DD ");
     }
     static async hashedPassword(password) {
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
         return hashedPassword;
     }
 }

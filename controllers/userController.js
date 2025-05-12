@@ -1,6 +1,8 @@
 const UserRepository = require("../repositories/userRepository");
 const UserService = require("../services/userService");
 const User = require("../models/userModel");
+const Utils = require("../utils/Utils");
+const e = require("express");
 
 class UserController{
     static async createUser(req, res) {
@@ -12,6 +14,17 @@ class UserController{
             res.status(200).json({ message: `user ${firstName} created successfully` });
         } catch (error) {
             res.status(500).json({ status: 500, message: error.message });
+        }
+    }
+    static async signUp(req, res) {
+        try {
+            const { email,  password ,confirm } = req.body;
+           
+            var user = new User(0, "firstName", "lastName", email, "03-12345678", password,Utils.formatDay());
+            const result = await UserService.createUser(user);
+            res.redirect('/');
+        } catch (error) {
+          res.redirect('/signUp.ejs'  );
         }
     }
 // static async userExist(req,res){
@@ -68,11 +81,13 @@ class UserController{
             const {email, password} = req.body;
            
             const result = await UserService.registration(email, password);
-            res.status(200).json(result);
+            res.redirect('/');
+          //  res.status(200).json(result);
 
             
         } catch (error) {
-              res.status(500).json({ status: 500, message:"Error registring Email and Password incorrect" });
+            res.redirect('/signIn.ejs'  );  
+            //res.status(500).json({ status: 500, message:"Error registring Email and Password incorrect" });
         }
     }
     static async getUser(req,res){
