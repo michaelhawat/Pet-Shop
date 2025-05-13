@@ -81,20 +81,24 @@ class UserController{
             const {email, password} = req.body;
            
             const result = await UserService.registration(email, password);
-            res.redirect('/');
-          //  res.status(200).json(result);
-
-            
-        } catch (error) {
-            res.redirect('/signIn.ejs'  );  
-            //res.status(500).json({ status: 500, message:"Error registring Email and Password incorrect" });
-        }
+            const user =  await UserService.userExist(email);
+            if(user[1] == 1){
+                res.redirect('/users.ejs'  );
+            }
+            else {
+                res.redirect('/');
+            } 
+            } catch (error) {
+                res.redirect('/signIn.ejs' );
+            }  
+     
     }
     static async getUser(req,res){
       try {
+
         const {id}= req.params;
         const result = await UserService.readUser(id);
-        return  res.status(200).json(result);
+       return res.status(200).json(result);
      } catch (error) {
         return res.status(500).json({ status: 500, message: error.message });
      }

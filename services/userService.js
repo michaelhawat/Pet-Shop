@@ -62,6 +62,13 @@ class UserService{
             throw new Error(`Error reading user: ${error.message}`);
         }
     }
+    static async userExist(email){
+        try {
+            return await UserRepository.userExist(email);
+        } catch (error) {
+            throw new Error(`Error checking user existence: ${error.message}`);
+        }
+    }
 
     
 

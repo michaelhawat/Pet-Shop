@@ -2,6 +2,8 @@ const moment = require("moment");
 const pool=require("../Web project/config/db");
 const bcrypt = require("bcrypt");
 
+const session = require("express-session");
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -33,6 +35,13 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/pets',petRoutes);
 app.use('/api/app', appRoutes);
+app.use(
+    session({
+      secret: "your_secret_key",
+      resave: false,
+      saveUninitialized: true,
+    })
+  );
 app.use('/api/payments', paymentRoutes);
 app.use('/api/orderDetails', orderDetails);
 app.use('/api/boardings',boardingRoutes);
