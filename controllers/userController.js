@@ -40,7 +40,14 @@ class UserController{
            return res.status(500).json({ status: 500, message: error.message });
         }
     }
+static async loadUserForm(req, res){
+        const {id} = req.params;
+        // get the fresh data from the db
+        // to make sure that we have the latest data.
+        const result = await UserService.readUser(id);
 
+        res.render('editUser', {user: result});
+    }
     static async updateUser(req, res) {
         try {
             const { id } = req.params;
@@ -48,7 +55,8 @@ class UserController{
            
             var user = new User(id, firstName, lastName, email, phone ,0,dob);
             const result = await UserService.updateUser(user);
-            res.status(201).json({ result, message: `The ${id} id have been updated` });
+           
+            res.redirect('/users.ejs');
         } catch (error) {
             res.status(500).json({ status: 500, message: error.message });
         }

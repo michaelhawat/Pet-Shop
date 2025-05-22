@@ -1,5 +1,4 @@
-
-<html>
+ <html>
     <head>
         <title>CSIS 228 S2</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
@@ -8,43 +7,47 @@
         <%- include ('partials/header') %>
         <div class="container">
             <h1><%= message %></h1>
-            <table class="table table-striped table-dark table-lg">
+ <table class="table table-striped table-dark table-lg">
                 <thead>
                     <tr>
-                        
-                        <th class = "text-default">User Id</th>
-                        <th class="text-success">First Name</th>
-                        <th class="text-danger">Last Name</th>
-                        <th class="text-primary">Email</th>
-                        <th class="text-secondary">DOB</th>                       
+                        <th class="text-secondary">User ID</th>
+                        <th class="text-danger">User Name</th>
+                        <th class="text-success">Pet Id</th>
+                        <th class="text-danger">Pet Name</th>
+                        <th class="text-primary">Pet type</th>
+                        <th class="text-secondary">pet gender</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <% for(let i = 0; i < users.length; i++) { %>
+                    <% for(let i = 0; i < pets.length; i++) { %>
                         <tr>
                             <td>
-                                <%= users[i].id %>                                       
+                                <%= userpet && userpet[i] ? userpet[i].id : '' %>
                             </td>
                             <td>
-                                <%= users[i].firstName %>
+                                <%= userpet && userpet[i] ? userpet[i].firstName : '' %>
                             </td>
                             <td>
-                                <%= users[i].lastName %>
+                                <%= pets[i].petId %>
                             </td>
                             <td>
-                                <%= users[i].email %>
+                                <%= pets[i].petName %>
                             </td>
                             <td>
-                                <%= users[i].dob %>
+                                <%= pets[i].petType %>
                             </td>
                             <td>
-                                <a href="/api/users/edit-form/<%= users[i].id %>" class="btn btn-primary btn-sm">Edit User</a>
+                                <%= pets[i].petGender %>
+                            </td>
+                             <td>
+                                <a href="/api/pets/edit-Petform/<%= pets[i].petId %>" class="btn btn-primary btn-sm">Edit Pet</a>
                             </td>
                         </tr>
                         <% } %>
                 </tbody>
             </table>
-           
+        </div>
+            
         <%- include('partials/footer') %>
     </body>
     

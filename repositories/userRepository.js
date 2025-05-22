@@ -15,6 +15,7 @@ class UserRepository{
      */
     static async createUser(user) {
         try {
+            
             const sql = `INSERT INTO users 
             (first_name, last_name , email, phone, password,dob)
             VALUES (?, ?, ?, ?, ?,?)`;
@@ -23,7 +24,7 @@ class UserRepository{
             
             if(!exist){
             const {affectedRows} = await db.query(sql, 
-                [user.firstName,user.lastName,user.email,user.phone ,hashedPassword,user.dob]);
+                [user.firstName,user.lastName,user.email,user.phone ,hashedPassword,Utils.formatDaySQL(user.dob)]);
 
             return affectedRows;
             }
@@ -60,7 +61,7 @@ class UserRepository{
             console.log(exist[1]);
             if(user.id == exist[1] || !exist){
             const {affectedRows} = await db.query(sql, 
-                [user.firstName,user.lastName,user.email,user.phone , user.dob,user.id]);
+                [user.firstName,user.lastName,user.email,user.phone , Utils.formatDaySQL(user.dob) ,user.id]);
 
             return affectedRows;
             }

@@ -1,4 +1,4 @@
-
+const Utils = require('../utils/utils');
 class User {
 constructor(id, firstName, lastName,email,phone ,password,dob){
 this.id = id;
@@ -7,7 +7,7 @@ this.lastName = lastName;
 this.email = email;
 this.phone = phone;
 this.password = password;
-this.dob = dob;
+this.dob = Utils.formatDaySQL(dob);
 }
 static fromRow(row){
 return new User(

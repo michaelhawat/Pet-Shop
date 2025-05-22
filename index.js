@@ -117,10 +117,28 @@ try {
 
 app.get('/users.ejs', async (req, res) => {    
    const users = await UserService.readUsers();
-    const pets = await PetService.getAllPets();
-    res.render('users', { message : 'Welcome to the Home Page' , users : users , pets : pets});
+    res.render('users', { message : 'Welcome to the Home Page' , users : users });
 
 });
+app.get('/pets.ejs', async (_req, res) => {    
+   const pets = await PetService.getAllPets();
+
+   const users = await UserService.readUsers();
+   let userpet = [];
+   for(let i = 0; i < users.length; i++){
+    const pet = await PetService.getPetByUserId(users[i].id);
+
+    if(pet.length > 0){
+        userpet.push({
+            id: users[i].id,
+            firstName: users[i].firstName
+        });
+    }
+   }
+    res.render('pets', { message : 'Welcome to the Home Page', userpet: userpet, pets: pets });
+
+});
+
 
 app.listen(PORT,()=>{
     console.log(`Server is running on http://localhost:${PORT}`);

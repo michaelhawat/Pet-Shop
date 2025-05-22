@@ -1,5 +1,7 @@
 const PetService = require('../services/petService');   
 const Pet = require('../models/petModel');
+const UserController = require('./userController');
+const UserService = require('../services/userService');
 
 class PetController{
 
@@ -13,14 +15,21 @@ static async createPet(req, res) {
         return res.status(500).json({ message: error.message });
     }
 }
-
+static async loadPetForm(req, res){
+        const {petId} = req.params;
+        // get the fresh data from the db
+        // to make sure that we have the latest data.
+        const result = await PetService.getPetById(petId);
+const user = await UserService.readUser(result.userId);
+        res.render('editPets', {pets: result , user : user});
+    }
 static async updatePet(req, res) {
     try {
         const { petId } = req.params;
         const { userId, petName, petType, vaccinated, petAge, petGender } = req.body;
         const pet = new Pet(petId, userId, petName, petType, vaccinated, petAge, petGender);
         const result = await PetService.updatePet(pet);
-        return res.status(200).json({ message: "Pet updated successfully" });
+        res.redirect('/pets.ejs');
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }

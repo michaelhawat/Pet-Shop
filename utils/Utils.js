@@ -9,6 +9,9 @@ class Utils {
     static formatDateSQL(date) {
         return moment(date, 'YYYY-MM-DD hh:mm').format("YYYY-MM-DD hh:mm");
     }
+     static formatDaySQL(date) {
+        return moment(date, 'YYYY-MM-DD').format("YYYY-MM-DD ");
+    }
     static formatDate() {
         return moment().format("YYYY-MM-DD hh:mm");
     }

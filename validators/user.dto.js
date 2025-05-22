@@ -25,9 +25,7 @@ const validateUser = [
         .withMessage('Email is required'),
         body('dob')
         .isDate()
-        .withMessage('Invalid date')
-        .notEmpty()
-        .withMessage('Date of birth is required'),
+        .withMessage('Invalid date'),
         (req, res, next) =>{
             const errors = validationResult(req);
             if(!errors.isEmpty()){
