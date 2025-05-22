@@ -15,8 +15,9 @@
 }
 </style>
 
-<div class="container">
+
     <%- include("partials/header") %>
+    <div class="container">
     <h1>Edit Pet Profile</h1>
     <div class="card mb-4">
         <div class="card-body">
@@ -48,7 +49,12 @@
 
             <div class="form-group mb-3">
                 <label>Type</label>
-                <input type="text" name="petType" id="type" class="form-control" value="<%= pets.petType %>">
+                <select name="petType" id="type" class="form-control">
+                    <option value="">Select</option>
+                    <option value="Dog" <%= pets.petType === 'Dog' ? 'selected' : '' %>>Dog</option>
+                    <option value="Cat" <%= pets.petType === 'Cat' ? 'selected' : '' %>>Cat</option>
+                    <option value="Bird" <%= pets.petType === 'Bird' ? 'selected' : '' %>>Bird</option>
+                </select>
                 <div class="text-danger" id="typeError" style="display: none;">Please enter the pet's type</div>
             </div>
 

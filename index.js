@@ -114,6 +114,14 @@ try {
         console.log(error);
     }
      });
+app.get('/adminView.ejs', async (req,res)=>{
+    try {
+        
+        res.render('adminView', { message : 'Welcome to the admin Page'  });
+    } catch (error) {
+        console.log(error);
+    }
+     });
 
 app.get('/users.ejs', async (req, res) => {    
    const users = await UserService.readUsers();

@@ -91,7 +91,7 @@ static async loadUserForm(req, res){
             const result = await UserService.registration(email, password);
             const user =  await UserService.userExist(email);
             if(user[1] == 1){
-                res.redirect('/users.ejs'  );
+                res.redirect('/adminView.ejs'  );
             }
             else {
                 res.redirect('/');
