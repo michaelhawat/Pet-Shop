@@ -131,9 +131,21 @@ app.get('/users.ejs', async (req, res) => {
 app.get('/createPd.ejs', async (req, res) => {
     
     res.render('createPd');
-}
-);
-
+});
+app.get('/customerView.ejs/:id', async (req, res) => {
+    const user = await UserService.readUser(req.params.id);
+    res.render('customerView', { message : 'Welcome to the Home Page' , user : user });
+});
+app.get('/customerPet.ejs/:id', async (req, res) => {
+const pets = await PetService.getPetByUserId(req.params.id);   
+const user = await UserService.readUser(req.params.id);
+    
+ res.render('customerPet', { message : 'Welcome to the Home Page' , pets : pets , userpet : user });
+});
+app.get('/customerDashboard.ejs', async (req, res) => {
+    
+    res.render('customerDashboard');
+});
 app.get('/products.ejs', async (req,res) =>{
     const products = await ProductService.getAllProducts();
     res.render('products', { message : 'Welcome to the Home Page' , products : products });

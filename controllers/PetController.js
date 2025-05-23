@@ -29,7 +29,11 @@ static async updatePet(req, res) {
         const { userId, petName, petType, vaccinated, petAge, petGender } = req.body;
         const pet = new Pet(petId, userId, petName, petType, vaccinated, petAge, petGender);
         const result = await PetService.updatePet(pet);
+        const is = await UserService.readUser(userId);
+        if(userId == 1)
         res.redirect('/pets.ejs');
+        else
+        res.render(`customerDashboard`,{user: is});
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }

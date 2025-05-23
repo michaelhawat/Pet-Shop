@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<%- include("partials/cHeader") %>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Welcome, <%= user.first_name %>!</h2>
+
+    <!-- Profile Section -->
+    <div class="card mb-4">
+        <div class="card-header">Profile</div>
+        <div class="card-body">
+            <form action="/api/users/user/<%= user.user_id %>" method="POST">
+                <div class="mb-3">
+                    <label>First Name</label>
+                    <input name="firstName" class="form-control" value="<%= user.first_name %>">
+                </div>
+                <div class="mb-3">
+                    <label>Last Name</label>
+                    <input name="lastName" class="form-control" value="<%= user.last_name %>">
+                </div>
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input name="email" type="email" class="form-control" value="<%= user.email %>">
+                </div>
+                <div class="mb-3">
+                    <label>Phone</label>
+                    <input name="phone" class="form-control" value="<%= user.phone %>">
+                </div>
+                <div class="mb-3">
+                    <label>Date of Birth</label>
+                    <input name="dob" type="date" class="form-control" value="<%= user.dob %>">
+                </div>
+                <button class="btn btn-secondary">Save Profile</button>
+            </form>
+
+            <form action="/api/users/delete/<%= user.user_id %>" method="POST" class="mt-2" onsubmit="return confirm('Are you sure?');">
+                <button class="btn btn-danger">Delete Account</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Pet List -->
+    
+</div>
+
+<%- include("partials/footer") %>
+
+</body>
+</html>

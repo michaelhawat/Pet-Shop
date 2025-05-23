@@ -3,6 +3,7 @@ const UserService = require("../services/userService");
 const User = require("../models/userModel");
 const Utils = require("../utils/Utils");
 const e = require("express");
+const PetService = require("../services/petService");
 
 class UserController{
     static async createUser(req, res) {
@@ -55,8 +56,11 @@ static async loadUserForm(req, res){
            
             var user = new User(id, firstName, lastName, email, phone ,0,dob);
             const result = await UserService.updateUser(user);
-           
+            const is = await UserService.readUser(id);
+           if(id == 1)
             res.redirect('/users.ejs');
+        else
+            res.render('customerDashboard',{user: is});
         } catch (error) {
             res.status(500).json({ status: 500, message: error.message });
         }
@@ -89,12 +93,15 @@ static async loadUserForm(req, res){
             const {email, password} = req.body;
            
             const result = await UserService.registration(email, password);
-            const user =  await UserService.userExist(email);
-            if(user[1] == 1){
+            const id =  await UserService.userExist(email);
+            const user = await UserService.readUser(id[1]);
+            const pet = await PetService.getPetByUserId(id[1]);
+            if(id[1] == 1){
                 res.redirect('/adminView.ejs'  );
             }
             else {
-                res.redirect('/');
+                res.render('customerDashboard' , {pets:pet, user:user } );
+                
             } 
             } catch (error) {
                 res.redirect('/signIn.ejs' );
