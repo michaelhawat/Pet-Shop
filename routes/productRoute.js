@@ -12,13 +12,13 @@ router.get('/', productController.getAllProducts);
 router.get('/:pdId',validateProductId, productController.getProductById);
 
 // Create a new product
-router.post('/', validateProduct,productController.createProduct);
-
+router.post('/create', validateProduct,productController.createProduct);
+router.get('/edit-form/:pdId',validateProductId, productController.loadPdForm);
 // Update a product by ID
-router.put('/:pdId',validateProduct,validateProductId, productController.updateProduct);
+router.post('/edit/:pdId',validateProduct,validateProductId, productController.updateProduct);
 
 // Delete a product by ID
-router.delete('/:pdId',validateProductId, productController.deleteProduct);
+router.post('/delete/:pdId',validateProductId, productController.deleteProduct);
 
  router.get('productsView',productController.productsView);
 module.exports = router;

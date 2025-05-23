@@ -39,7 +39,7 @@ static async deletePet(req, res) {
     try {
         const { petId } = req.params;
         const result = await PetService.deletePet(petId);
-        return res.status(200).json({ message: "Pet deleted successfully" });
+        res.redirect('/pets.ejs');
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }

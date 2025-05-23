@@ -37,7 +37,7 @@
         <form action="/api/pets/edit/<%= pets.petId %>" method="post" id="editPetForm">
              <div class="form-group mb-3">
                 <label>User ID</label>
-                <input type="text" name="userId" id="userId" class="form-control" value="<%= pets.userId || user.user_id %>" readonly>
+                <input type="text" name="userId" id="userId" class="form-control" value="<%= pets.userId || user.user_id %>">
             </div>
             <div class="form-group mb-3">
                 <label>Name</label>
@@ -85,7 +85,11 @@
             </div>
 
             <button type="submit" class="btn btn-secondary">Save Changes</button>
+
         </form>
+        <form action="/api/pets/delete/<%= pets.petId%>" method="POST" onsubmit="return confirm('Are you sure you want to delete this pet?');">
+  <button type="submit" class="btn btn-danger">Delete</button>
+</form>
     </div>
 
     <%- include("partials/footer") %>

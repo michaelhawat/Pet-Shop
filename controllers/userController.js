@@ -67,7 +67,7 @@ static async loadUserForm(req, res){
             const { id } = req.params;
            
             const result = await UserService.deleteUser(id);
-            res.status(201).json({ message: `${id} deleted successfully` });
+            res.redirect("/users.ejs");
         } catch (error) {
             res.status(500).json({ status: 500, message:"Id is not correct" });
         }

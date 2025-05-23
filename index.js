@@ -128,6 +128,16 @@ app.get('/users.ejs', async (req, res) => {
     res.render('users', { message : 'Welcome to the Home Page' , users : users });
 
 });
+app.get('/createPd.ejs', async (req, res) => {
+    
+    res.render('createPd');
+}
+);
+
+app.get('/products.ejs', async (req,res) =>{
+    const products = await ProductService.getAllProducts();
+    res.render('products', { message : 'Welcome to the Home Page' , products : products });
+})
 app.get('/pets.ejs', async (_req, res) => {    
    const pets = await PetService.getAllPets();
 

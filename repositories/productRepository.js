@@ -41,11 +41,13 @@ static async getProductById(pdId){
  * @returns {object} Created product data
  * @throws {Error} if there is an error creating the product
  */
-static async createProduct(pdName,pdPrice){
+static async createProduct(pdName,pdPrice,category,description){
 try {
     const newProduct = await Product.create({
         pd_name: pdName,
-        pd_price:pdPrice
+        pd_price:pdPrice,
+        category:category,
+        description:description
     });
     return newProduct;
 } catch (error) {
@@ -61,12 +63,14 @@ try {
  * @throws {Error} if there is an error updating the product
  */
 
-static async updateProduct(pdId,pdName,pdPrice){
+static async updateProduct(pdId,pdName,pdPrice,category,description){
     try {
         
         const updateProduct = await Product.update({
             pd_name:pdName,
             pd_price : pdPrice
+            ,category:category,
+            description:description
         },
             {
                 where:{product_id : pdId}

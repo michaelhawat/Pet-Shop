@@ -15,7 +15,7 @@ router.post('/',validateUser,validateUserPass,UserController.createUser);
 router.post('/signUp',validateUserReg,UserController.signUp);
 router.post('/user/:id',validateUserId,validateUser,UserController.updateUser,);
 router.get('/id/:id',validateUserId,UserController.getUser);
-router.delete('/:id',validateUserId,UserController.deleteUser);
+router.post('/delete/:id',validateUserId,UserController.deleteUser);
 router.get('/edit-form/:id', UserController.loadUserForm);
 router.post('/signIn',validateUserReg,UserController.registration);
 router.put('/newPassword/:id',validateUserId,validateUserPass,UserController.changePassword);

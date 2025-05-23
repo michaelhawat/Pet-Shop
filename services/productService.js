@@ -23,21 +23,21 @@ class ProductService {
         }
     }
 
-    static async createProduct(pdName, pdPrice) {
+    static async createProduct(pdName, pdPrice,category,description) {
         try {
-            return await productRepository.createProduct(pdName, pdPrice);
+            return await productRepository.createProduct(pdName, pdPrice,category,description);
         } catch (error) {
             console.error('Error in createProduct:', error);
             throw error;
         }
     }
 
-    static async updateProduct(pdId, pdName, pdPrice) {
+    static async updateProduct(pdId, pdName, pdPrice,category,description) {
         try {
             if( await Product.findByPk(pdId) == null)
             
                 throw new Error("Product Id don't exist");
-            return await productRepository.updateProduct(pdId, pdName, pdPrice);
+            return await productRepository.updateProduct(pdId, pdName, pdPrice,category,description);
         } catch (error) {
             console.error('Error in updateProduct:', error);
             throw error;
