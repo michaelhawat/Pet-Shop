@@ -1,56 +1,63 @@
- <html>
-    <head>
-        <title>CSIS 228 S2</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    </head>
-    <body>
-        <%- include ('partials/header') %>
-        <div class="container">
-            <h1><%= message %></h1>
- <table class="table table-striped table-dark table-lg">
-                <thead>
-                    <tr>
-                        <th class="text-secondary">User ID</th>
-                        <th class="text-danger">User Name</th>
-                        <th class="text-success">Pet Id</th>
-                        <th class="text-danger">Pet Name</th>
-                        <th class="text-primary">Pet type</th>
-                        <th class="text-secondary">Pet gender</th>
-
-                        <th class="text-warning">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for(let i = 0; i < pets.length; i++) { %>
-                        <tr>
-                            <td>
-                                <%= userpet && userpet[i] ? userpet[i].id : '' %>
-                            </td>
-                            <td>
-                                <%= userpet && userpet[i] ? userpet[i].firstName : '' %>
-                            </td>
-                            <td>
-                                <%= pets[i].petId %>
-                            </td>
-                            <td>
-                                <%= pets[i].petName %>
-                            </td>
-                            <td>
-                                <%= pets[i].petType %>
-                            </td>
-                            <td>
-                                <%= pets[i].petGender %>
-                            </td>
-                             <td>
-                                <a href="/api/pets/edit-Petform/<%= pets[i].petId %>" class="btn btn-primary btn-sm">Edit Pet</a>
-                            </td>
-                        </tr>
-                        <% } %>
-                </tbody>
-            </table>
+<html>
+<head>
+    <title>Edit-Pets</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+        .pet-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 20px;
+            background: linear-gradient(to right, #ffffff, #f1f1f1);
+        }
+        .pet-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 0.7rem 1.4rem rgba(0, 0, 0, 0.2);
+        }
+        .card-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .card-text {
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+        .icon {
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/cHeader') %>
+    <div class="container my-5">
+        <h1 class="mb-5 text-center text-dark fw-bold"> Edit All Pets</h1>
+        <div class="row g-4">
+            <% for(let i = 0; i < pets.length; i++) { %>
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="card pet-card shadow border-0 h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-success">
+                                <i class="bi bi-person-badge icon"></i>
+                                <%= userpet && userpet[i] ? userpet[i].firstName : 'Unknown User' %>
+                            </h5>
+                            <p class="card-text"><i class="bi bi-hash icon text-muted"></i><strong>User ID:</strong> <%= userpet && userpet[i] ? userpet[i].id : '' %></p>
+                            <p class="card-text"><i class="bi bi-tag icon text-primary"></i><strong>Pet ID:</strong> <%= pets[i].petId %></p>
+                            <p class="card-text"><i class="bi bi-paw icon text-danger"></i><strong>Pet Name:</strong> <%= pets[i].petName %></p>
+                            <p class="card-text"><i class="bi bi-diagram-3 icon text-info"></i><strong>Type:</strong> <%= pets[i].petType %></p>
+                            <p class="card-text"><i class="bi bi-gender-ambiguous icon text-secondary"></i><strong>Gender:</strong> <%= pets[i].petGender %></p>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0 text-end">
+                            <a href="/api/pets/edit-Petform/<%= pets[i].petId %>" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-pencil-square"></i> Edit Pet
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
         </div>
-            
-        <%- include('partials/footer') %>
-    </body>
-    
+    </div>
+    <%- include('partials/footer') %>
+</body>
 </html>

@@ -3,53 +3,120 @@
 <head>
     <title>Customer Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .text-danger {
+        color: #dc3545;
+        background-color: #f8d7da;
+        padding: 6px;
+        border-radius: 5px;
+        margin-top: 4px;
+        display: block;
+      }
+    </style>
 </head>
 <body>
 
 <%- include("partials/cHeader") %>
+<% if (errorMessage) { %>
+  <div id="serverError" class="alert alert-danger">
+    <%= errorMessage %>
+  </div>
+<% } %>
 
 <div class="container mt-5">
-    <h2 class="mb-4">Welcome, <%= user.first_name %>!</h2>
+  <h2 class="mb-4">Welcome, <%= user.first_name %>!</h2>
 
-    <!-- Profile Section -->
-    <div class="card mb-4">
-        <div class="card-header">Profile</div>
-        <div class="card-body">
-            <form action="/api/users/user/<%= user.user_id %>" method="POST">
-                <div class="mb-3">
-                    <label>First Name</label>
-                    <input name="firstName" class="form-control" value="<%= user.first_name %>">
-                </div>
-                <div class="mb-3">
-                    <label>Last Name</label>
-                    <input name="lastName" class="form-control" value="<%= user.last_name %>">
-                </div>
-                <div class="mb-3">
-                    <label>Email</label>
-                    <input name="email" type="email" class="form-control" value="<%= user.email %>">
-                </div>
-                <div class="mb-3">
-                    <label>Phone</label>
-                    <input name="phone" class="form-control" value="<%= user.phone %>">
-                </div>
-                <div class="mb-3">
-                    <label>Date of Birth</label>
-                    <input name="dob" type="date" class="form-control" value="<%= user.dob %>">
-                </div>
-                <button class="btn btn-secondary">Save Profile</button>
-            </form>
-
-            <form action="/api/users/delete/<%= user.user_id %>" method="POST" class="mt-2" onsubmit="return confirm('Are you sure?');">
-                <button class="btn btn-danger">Delete Account</button>
-            </form>
+  <!-- Profile Section -->
+  <div class="card mb-4">
+    <div class="card-header">Profile</div>
+    <div class="card-body">
+      <form action="/api/users/user/<%= user.user_id %>" method="POST" id="profileForm">
+        <div class="mb-3">
+          <label>First Name</label>
+          <input id="firstName" name="firstName" class="form-control" value="<%= user.first_name %>">
+          <div class="text-danger" id="firstNameError" style="display: none;">Please enter your first name</div>
         </div>
-    </div>
+        <div class="mb-3">
+          <label>Last Name</label>
+          <input id="lastName" name="lastName" class="form-control" value="<%= user.last_name %>">
+          <div class="text-danger" id="lastNameError" style="display: none;">Please enter your last name</div>
+        </div>
+        <div class="mb-3">
+          <label>Email</label>
+          <input id="email" name="email" type="email" class="form-control" value="<%= user.email %>">
+          <div class="text-danger" id="emailError" style="display: none;">Please enter a valid email</div>
+        </div>
+        
+        <div class="mb-3">
+          <label>Phone</label>
+          <input id="phone" name="phone" class="form-control" value="<%= user.phone %>">
+          <div class="text-danger" id="phoneError" style="display: none;">Please enter a phone number</div>
+        </div>
+        <div class="mb-3">
+          <label>Date of Birth</label>
+          <input id="dob" name="dob" type="date" class="form-control" value="<%= user.dob %>">
+          <div class="text-danger" id="dobError" style="display: none;">Please enter your date of birth</div>
+        </div>
+        <button type="submit" class="btn btn-secondary">Save Profile</button>
+      </form>
 
-    <!-- Pet List -->
-    
+      <form action="/api/users/delete/<%= user.user_id %>" method="POST" class="mt-2" onsubmit="return confirm('Are you sure?');">
+        <button class="btn btn-danger">Delete Account</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Pet List (if any) -->
+
 </div>
 
 <%- include("partials/footer") %>
+
+<script>
+  document.getElementById("profileForm").addEventListener("submit", function (e) {
+    let valid = true;
+
+    // Values
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const dob = document.getElementById("dob").value.trim();
+
+    // Hide all errors first
+    document.querySelectorAll(".text-danger").forEach(el => el.style.display = "none");
+
+    if (!firstName) {
+      document.getElementById("firstNameError").style.display = "block";
+      valid = false;
+    }
+
+    if (!lastName) {
+      document.getElementById("lastNameError").style.display = "block";
+      valid = false;
+    }
+
+    if (!email || !email.includes("@")) {
+      document.getElementById("emailError").style.display = "block";
+      valid = false;
+    }
+
+    if (!phone || phone.length < 6) {
+      document.getElementById("phoneError").style.display = "block";
+      valid = false;
+    }
+
+    if (!dob) {
+      document.getElementById("dobError").style.display = "block";
+      valid = false;
+    }
+
+    if (!valid) {
+      e.preventDefault(); // Prevent submission if invalid
+    }
+  });
+</script>
 
 </body>
 </html>

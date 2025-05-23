@@ -1,51 +1,71 @@
 <html>
-    <head>
-        <title>CSIS 228 S2</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    </head>
-    <body>
-        <%- include('partials/header') %>
-        <div class="container">
-            <h1><%= message %>   </h1>  
+<head>
+    <title>Edit-Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 15px;
+            background: linear-gradient(to right, #ffffff, #f8f9fa);
+        }
+        .product-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 0.7rem 1.4rem rgba(0, 0, 0, 0.15);
+        }
+        .card-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        .price-badge {
+            font-size: 1rem;
+            font-weight: bold;
+            background-color: #0544f2;
+            color: white;
+            border-radius: 8px;
+            padding: 4px 8px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/cHeader') %>
+    <div class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-5 text-center text-dark fw-bold">Edit All Products</h1>
+            <a href="./createPd.ejs" class="btn btn-primary">
+    <i class="bi bi-plus-circle-fill"></i> Add Product
+</a>
 
-            <table class="table table-striped table-dark table-lg">
-                <thead>
-                    
-                    <tr>
-                        <th class="text-default">Product Name</th>
-                        <th class="text-success">Price</th>
-                        <th class="text-primary">Category</th>
-                        <th class="text-secondary">Description</th>
-                        <th class="text-warning">Action</th>
-
-
-                    </tr>
-
-                </thead>
-                <tbody>
-                    <% for(let i = 0; i < products.length; i++) { %>
-                        <tr>
-                            
-                            <td>
-                                <%= products[i].pd_name %>
-                            </td>
-                            <td>
-                                $<%= products[i].pd_price %>
-                            </td>
-                            <td>
-                                <%= products[i].category %>
-                            </td>
-                            <td>
+        </div>
+        <div class="row g-4">
+            <% for(let i = 0; i < products.length; i++) { %>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card product-card shadow border-0 h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-dark">
+                                <i class="bi bi-box-seam me-2"></i><%= products[i].pd_name %>
+                            </h5>
+                            <p class="price-badge">$<%= products[i].pd_price %></p>
+                            <p class="card-text mt-3">
+                                <i class="bi bi-tags-fill text-primary me-2"></i>
+                                <strong>Category:</strong> <%= products[i].category %>
+                            </p>
+                            <p class="card-text">
+                                <i class="bi bi-info-circle text-secondary me-2"></i>
+                                <strong>Description:</strong><br>
                                 <%= products[i].description %>
-                            </td>
-                            <td>
-                                <a href="/api/products/edit-form/<%= products[i].product_id %>" class="btn btn-primary btn-sm">Edit Product</a>
-                            </td>
-                        </tr>
-                    <% } %>
-                    <a href="./createPd.ejs" class="btn btn-secondary  p-1">Add Product</a>
-                </tbody>
-            </table>
-        <%- include('partials/footer') %>
-    </body>
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0 text-end">
+                            <a href="/api/products/edit-form/<%= products[i].product_id %>" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-pencil-square"></i> Edit Product
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    <%- include('partials/footer') %>
+</body>
 </html>

@@ -133,9 +133,16 @@ app.get('/createPd.ejs', async (req, res) => {
     res.render('createPd');
 });
 app.get('/customerView.ejs/:id', async (req, res) => {
+    try{
     const user = await UserService.readUser(req.params.id);
-    res.render('customerView', { message : 'Welcome to the Home Page' , user : user });
-});
+    res.render('customerView', { message : 'Welcome to the Home Page' , user : user,errorMessage: null });
+    }
+    catch(err){
+         res.render('customerView', {
+      user: req.body,
+      errorMessage: 'There is a user that has the same email'
+    });
+}});
 app.get('/customerPet.ejs/:id', async (req, res) => {
 const pets = await PetService.getPetByUserId(req.params.id);   
 const user = await UserService.readUser(req.params.id);

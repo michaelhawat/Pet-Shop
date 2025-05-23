@@ -1,0 +1,240 @@
+<html>
+<head>
+    <title>Create Pet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<style>
+.text-danger {
+    color: #dc3545;
+    background-color: #f8d7da;
+    padding: 6px;
+    border-radius: 5px;
+    margin-top: 4px;
+    display: block;
+}
+</style>
+
+    <%- include("partials/cHeader") %>
+    <div class="container">
+    <h1>Create Pet</h1>
+
+    <div class="container">
+        <form action="/api/pets/create" method="post" id="createPetForm">
+            
+            <div class="form-group mb-3">
+                <label>Name</label>
+                <input type="text" name="petName" id="petName" class="form-control" value="">
+                <div class="text-danger" id="nameError" style="display: none;">Please enter the pet name</div>
+            </div>
+            <div class="form-group mb-3">
+                <label>Type</label>
+                <select name="petType" id="species" class="form-control">
+                    <option value="">Select</option>
+                    <option value="Dog">Dog</option>
+                    <option value="Cat">Cat</option>
+                    <option value="Bird">Bird</option>
+                </select>
+                <div class="text-danger" id="speciesError" style="display: none;">Please select a species</div>
+            </div>
+            <div class="form-group mb-3">
+                <label>Age</label>
+                <input type="number" name="age" id="age" class="form-control" value="" min="0" step="1">
+                <div class="text-danger" id="ageError" style="display: none;">Please enter a valid age (0 or higher)</div>
+            </div>
+            <div class="form-group mb-3">
+                <label>Vaccinated</label>
+                <select name="vaccinated" id="vaccinated" class="form-control">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <div class="text-danger" id="vaccinatedError" style="display: none;">Please select vaccination status</div>
+            </div>
+            <div class="form-group mb-3">
+                <label>Gender</label>
+                <select name="gender" id="gender" class="form-control">
+                    <option value="">Select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+                <div class="text-danger" id="genderError" style="display: none;">Please select pet gender</div>
+            </div>
+            <div class="form-group mb-3">
+                <label>User ID</label>
+                <input type="text" name="userId" id="userId" class="form-control" value="">
+                <div class="text-danger" id="userIdError" style="display: none;">Please enter the user ID</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Pet</button>
+        </form>
+    </div>
+
+    <%- include("partials/footer") %>
+</div>
+
+<script>
+document.getElementById("createPetForm").addEventListener("submit", function (e) {
+    let valid = true;
+
+    // Grab values
+    const name = document.getElementById("petName").value.trim();
+    const species = document.getElementById("species").value.trim();
+    const age = document.getElementById("age").value.trim();
+
+    // Hide all previous errors
+    document.querySelectorAll(".text-danger").forEach(el => el.style.display = "none");
+
+    if (!name) {
+        document.getElementById("nameError").style.display = "block";
+        valid = false;
+    }
+
+    if (!species) {
+        document.getElementById("speciesError").style.display = "block";
+        valid = false;
+    }
+
+    if (!age || isNaN(age) || Number(age) < 0) {
+        document.getElementById("ageError").style.display = "block";
+        valid = false;
+    }
+
+    if (!valid) {
+        e.preventDefault(); // prevent form submission
+    }
+});
+</script>
+
+</body>
+</html>
+
+/////////////////////////////////////
+<html>
+<head>
+    <title>Create Pet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+        .card {
+            border-radius: 20px;
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 0.8rem 1.6rem rgba(0, 0, 0, 0.2);
+        }
+        .text-danger {
+            background-color: #f8d7da;
+            padding: 6px;
+            border-radius: 5px;
+            margin-top: 4px;
+            display: block;
+        }
+        .form-label {
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<%- include("partials/cHeader") %>
+
+<div class="container my-5">
+    <h2 class="text-center text-dark fw-bold mb-4"><i class="bi bi-plus-circle text-primary"></i> Create New Pet</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card p-4">
+                <form action="/api/pets/create" method="post" id="createPetForm">
+                    <div class="mb-3">
+                        <label class="form-label">Pet Name</label>
+                        <input type="text" name="petName" id="petName" class="form-control">
+                        <div class="text-danger" id="nameError" style="display: none;">Please enter the pet name</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Pet Type</label>
+                        <select name="petType" id="species" class="form-select">
+                            <option value="">Select</option>
+                            <option value="Dog">Dog</option>
+                            <option value="Cat">Cat</option>
+                            <option value="Bird">Bird</option>
+                        </select>
+                        <div class="text-danger" id="speciesError" style="display: none;">Please select a species</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Age</label>
+                        <input type="number" name="age" id="age" class="form-control" min="0" step="1">
+                        <div class="text-danger" id="ageError" style="display: none;">Please enter a valid age (0 or higher)</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Vaccinated</label>
+                        <select name="vaccinated" id="vaccinated" class="form-select">
+                            <option value="">Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        <div class="text-danger" id="vaccinatedError" style="display: none;">Please select vaccination status</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Gender</label>
+                        <select name="gender" id="gender" class="form-select">
+                            <option value="">Select</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                        <div class="text-danger" id="genderError" style="display: none;">Please select pet gender</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">User ID</label>
+                        <input type="text" name="userId" id="userId" class="form-control">
+                        <div class="text-danger" id="userIdError" style="display: none;">Please enter the user ID</div>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-plus-circle-fill"></i> Create Pet
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include("partials/footer") %>
+
+<script>
+document.getElementById("createPetForm").addEventListener("submit", function (e) {
+    let valid = true;
+    const name = document.getElementById("petName").value.trim();
+    const species = document.getElementById("species").value.trim();
+    const age = document.getElementById("age").value.trim();
+    const vaccinated = document.getElementById("vaccinated").value.trim();
+    const gender = document.getElementById("gender").value.trim();
+    const userId = document.getElementById("userId").value.trim();
+
+    document.querySelectorAll(".text-danger").forEach(el => el.style.display = "none");
+
+    if (!name) { document.getElementById("nameError").style.display = "block"; valid = false; }
+    if (!species) { document.getElementById("speciesError").style.display = "block"; valid = false; }
+    if (!age || isNaN(age) || Number(age) < 0) { document.getElementById("ageError").style.display = "block"; valid = false; }
+    if (!vaccinated) { document.getElementById("vaccinatedError").style.display = "block"; valid = false; }
+    if (!gender) { document.getElementById("genderError").style.display = "block"; valid = false; }
+    if (!userId) { document.getElementById("userIdError").style.display = "block"; valid = false; }
+
+    if (!valid) e.preventDefault();
+});
+</script>
+
+</body>
+</html>
+

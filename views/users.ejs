@@ -1,52 +1,57 @@
-
 <html>
-    <head>
-        <title>CSIS 228 S2</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    </head>
-    <body>
-        <%- include ('partials/header') %>
-        <div class="container">
-            <h1><%= message %></h1>
-            <table class="table table-striped table-dark table-lg">
-                <thead>
-                    <tr>
-                        
-                        <th class = "text-default">User Id</th>
-                        <th class="text-success">First Name</th>
-                        <th class="text-danger">Last Name</th>
-                        <th class="text-primary">Email</th>
-                        <th class="text-secondary">DOB</th>   
-                        <th class="text-warning">Action</th>                    
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for(let i = 0; i < users.length; i++) { %>
-                        <tr>
-                            <td>
-                                <%= users[i].id %>                                       
-                            </td>
-                            <td>
-                                <%= users[i].firstName %>
-                            </td>
-                            <td>
-                                <%= users[i].lastName %>
-                            </td>
-                            <td>
-                                <%= users[i].email %>
-                            </td>
-                            <td>
-                                <%= users[i].dob %>
-                            </td>
-                            <td>
-                                <a href="/api/users/edit-form/<%= users[i].id %>" class="btn btn-primary btn-sm">Edit User</a>
-                            </td>
-                        </tr>
-                        <% } %>
-                </tbody>
-            </table>
-           
-        <%- include('partials/footer') %>
-    </body>
-    
+<head>
+    <title>Edit-Users</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+        .user-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 20px;
+            background: linear-gradient(to right, #ffffff, #f1f1f1);
+        }
+        .user-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 0.7rem 1.4rem rgba(0, 0, 0, 0.2);
+        }
+        .card-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .card-text {
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+        .user-icon {
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/cHeader') %>
+    <div class="container my-5">
+        <h1 class="mb-5 text-center text-dark fw-bold">Edit All Users</h1>
+        <div class="row g-4">
+            <% for(let i = 0; i < users.length; i++) { %>
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="card user-card shadow border-0 h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary"><i class="bi bi-person-badge user-icon"></i>User ID: <%= users[i].id %></h5>
+                            <p class="card-text"><i class="bi bi-person user-icon text-success"></i><strong>First Name:</strong> <%= users[i].firstName %></p>
+                            <p class="card-text"><i class="bi bi-person user-icon text-danger"></i><strong>Last Name:</strong> <%= users[i].lastName %></p>
+                            <p class="card-text"><i class="bi bi-envelope user-icon text-primary"></i><strong>Email:</strong> <%= users[i].email %></p>
+                            <p class="card-text"><i class="bi bi-calendar-date user-icon text-secondary"></i><strong>DOB:</strong> <%= users[i].dob %></p>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0 text-end">
+                            <a href="/api/users/edit-form/<%= users[i].id %>" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil-square"></i> Edit User</a>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    <%- include('partials/footer') %>
+</body>
 </html>

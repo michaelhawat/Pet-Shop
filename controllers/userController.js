@@ -61,6 +61,7 @@ static async loadUserForm(req, res){
             res.redirect('/users.ejs');
         else
             res.render('customerDashboard',{user: is});
+        
         } catch (error) {
             res.status(500).json({ status: 500, message: error.message });
         }
